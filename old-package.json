@@ -1,0 +1,33 @@
+{
+  "name": "cartola-fc",
+  "version": "1.0.0",
+  "description": "Data visualization tool for Cartola FC fantasy game players.",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Leandro Machado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/leandromachado/cartola-fc/issues"
+  },
+  "homepage": "https://gitlab.com/leandromachado/cartola-fc#README",
+  "dependencies": {
+    "agentkeepalive": "^3.1.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "pug": "^2.0.0-beta.12",
+    "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

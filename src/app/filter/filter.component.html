@@ -1,0 +1,334 @@
+<div class="container-fluid">
+  <!--PAINEL-->
+  <div class = "panelFilter">
+    <div class = "row">
+      <div [ngSwitch] = "positionFilter">
+        <ng-container *ngSwitchCase="'position'">
+          <div class="col-lg-offset-3 col-lg-2 col-md-offset-2 col-md-3 col-xs-6 col-xs-offset-1 text-center"> 
+            <p class = "filter-title text-center"> Time </p>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[0], 'buttonFilter': isNotClicked[0]}" 
+                  (click) = "highlightButtonFilter(0, 'team')">ATG</button>
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[1], 'buttonFilter': isNotClicked[1]}" 
+                  (click) = "highlightButtonFilter(1, 'team')"> AVA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[2], 'buttonFilter': isNotClicked[2]}" 
+                  (click) = "highlightButtonFilter(2, 'team')"> BAH </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[3], 'buttonFilter': isNotClicked[3]}" 
+                  (click) = "highlightButtonFilter(3, 'team')"> BOT </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[4], 'buttonFilter': isNotClicked[4]}" 
+                  (click) = "highlightButtonFilter(4, 'team')"> CAM </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[5], 'buttonFilter': isNotClicked[5]}" 
+                  (click) = "highlightButtonFilter(5, 'team')"> CAP </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[6], 'buttonFilter': isNotClicked[6]}" 
+                  (click) = "highlightButtonFilter(6, 'team')"> CHA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[7], 'buttonFilter': isNotClicked[7]}" 
+                  (click) = "highlightButtonFilter(7, 'team')"> COR </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[8], 'buttonFilter': isNotClicked[8]}" 
+                  (click) = "highlightButtonFilter(8, 'team')"> CRU </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[9], 'buttonFilter': isNotClicked[9]}" 
+                  (click) = "highlightButtonFilter(9, 'team')"> CTB </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[10], 'buttonFilter': isNotClicked[10]}" 
+                  (click) = "highlightButtonFilter(10, 'team')"> FLA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[11], 'buttonFilter': isNotClicked[11]}" 
+                  (click) = "highlightButtonFilter(11, 'team')"> FLU </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[12], 'buttonFilter': isNotClicked[12]}" 
+                  (click) = "highlightButtonFilter(12, 'team')"> GRE </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[13], 'buttonFilter': isNotClicked[13]}" 
+                  (click) = "highlightButtonFilter(13, 'team')"> PAL </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[14], 'buttonFilter': isNotClicked[14]}" 
+                  (click) = "highlightButtonFilter(14, 'team')"> PON </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[15], 'buttonFilter': isNotClicked[15]}" 
+                  (click) = "highlightButtonFilter(15, 'team')"> SAN </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[16], 'buttonFilter': isNotClicked[16]}" 
+                  (click) = "highlightButtonFilter(16, 'team')"> SAO </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[17], 'buttonFilter': isNotClicked[17]}" 
+                  (click) = "highlightButtonFilter(17, 'team')"> SPT </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[18], 'buttonFilter': isNotClicked[18]}" 
+                  (click) = "highlightButtonFilter(18, 'team')"> VAS </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[19], 'buttonFilter': isNotClicked[19]}" 
+                  (click) = "highlightButtonFilter(19, 'team')"> VIT </button> 
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase = "'noPosition'">
+          <div class="col-lg-offset-4 col-lg-2 col-md-offset-2 col-md-3 col-xs-6 col-xs-offset-1 text-center"> 
+            <p class = "filter-title text-center">Times</p>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[0], 'buttonFilter': isNotClicked[0]}" 
+                  (click) = "highlightButtonFilter(0, 'team')">ATG</button>
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[1], 'buttonFilter': isNotClicked[1]}" 
+                  (click) = "highlightButtonFilter(1, 'team')"> AVA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[2], 'buttonFilter': isNotClicked[2]}" 
+                  (click) = "highlightButtonFilter(2, 'team')"> BAH </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[3], 'buttonFilter': isNotClicked[3]}" 
+                  (click) = "highlightButtonFilter(3, 'team')"> BOT </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[4], 'buttonFilter': isNotClicked[4]}" 
+                  (click) = "highlightButtonFilter(4, 'team')"> CAM </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[5], 'buttonFilter': isNotClicked[5]}" 
+                  (click) = "highlightButtonFilter(5, 'team')"> CAP </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[6], 'buttonFilter': isNotClicked[6]}" 
+                  (click) = "highlightButtonFilter(6, 'team')"> CHA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[7], 'buttonFilter': isNotClicked[7]}" 
+                  (click) = "highlightButtonFilter(7, 'team')"> COR </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[8], 'buttonFilter': isNotClicked[8]}" 
+                  (click) = "highlightButtonFilter(8, 'team')"> CRU </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[9], 'buttonFilter': isNotClicked[9]}" 
+                  (click) = "highlightButtonFilter(9, 'team')"> CTB </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[10], 'buttonFilter': isNotClicked[10]}" 
+                  (click) = "highlightButtonFilter(10, 'team')"> FLA </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[11], 'buttonFilter': isNotClicked[11]}" 
+                  (click) = "highlightButtonFilter(11, 'team')"> FLU </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[12], 'buttonFilter': isNotClicked[12]}" 
+                  (click) = "highlightButtonFilter(12, 'team')"> GRE </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[13], 'buttonFilter': isNotClicked[13]}" 
+                  (click) = "highlightButtonFilter(13, 'team')"> PAL </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[14], 'buttonFilter': isNotClicked[14]}" 
+                  (click) = "highlightButtonFilter(14, 'team')"> PON </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[15], 'buttonFilter': isNotClicked[15]}" 
+                  (click) = "highlightButtonFilter(15, 'team')"> SAN </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[16], 'buttonFilter': isNotClicked[16]}" 
+                  (click) = "highlightButtonFilter(16, 'team')"> SAO </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[17], 'buttonFilter': isNotClicked[17]}" 
+                  (click) = "highlightButtonFilter(17, 'team')"> SPT </button> 
+              </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[18], 'buttonFilter': isNotClicked[18]}" 
+                  (click) = "highlightButtonFilter(18, 'team')"> VAS </button> 
+              </div>
+              <div class = "col-lg-4 col-md-4 col-xs-4 filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[19], 'buttonFilter': isNotClicked[19]}" 
+                  (click) = "highlightButtonFilter(19, 'team')"> VIT </button> 
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-lg-1 col-md-1 col-xs-5 text-center">
+        <p class = "filter-title">Local</p>
+        <div class = "row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[20], 'buttonFilter': isNotClicked[20]}" (click) = "highlightButtonFilter(20, 'location')"> CASA </button></div>
+        </div>
+        <div class = "row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[21], 'buttonFilter': isNotClicked[21]}" (click) = "highlightButtonFilter(21, 'location')"> FORA </button></div>
+        </div>
+        <div class = "row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[22], 'buttonFilter': isNotClicked[22]}" (click) = "highlightButtonFilter(22, 'location')"> AMBOS </button></div>
+        </div>
+      </div>
+      <div class="clearfix visible-xs"></div>
+      <div [ngSwitch] = "positionFilter">
+        <ng-container *ngSwitchCase="'position'">
+          <div class="col-lg-2 col-lg-offset-0 col-md-3 col-md-offset-0 col-xs-6 col-xs-offset-1 text-center"> 
+            <p class = "filter-title">Posição</p>
+            <div class = "row">
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-left filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[30], 'buttonFilter': isNotClicked[30]}" (click) = "highlightButtonFilter(30, 'position')"> 
+                  <p class = "text-item-filter-position-left">GOLEIRO</p>
+                </button> </div>
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-right filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[31], 'buttonFilter': isNotClicked[31]}" (click) = "highlightButtonFilter(31, 'position')"> 
+                  <p class = "text-item-filter-position-right">ZAGUEIRO</p>
+                </button> </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-left filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[32], 'buttonFilter': isNotClicked[32]}" (click) = "highlightButtonFilter(32, 'position')"> 
+                  <p class = "text-item-filter-position-left">LAT. ESQUERDO</p>
+                </button></div>
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-right filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[33], 'buttonFilter': isNotClicked[33]}" (click) = "highlightButtonFilter(33, 'position')"> 
+                  <p class = "text-item-filter-position-right">LAT. DIREITO</p>
+                </button></div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-left filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[34], 'buttonFilter': isNotClicked[34]}" (click) = "highlightButtonFilter(34, 'position')"> 
+                  <p class = "text-item-filter-position-left">MEIA OFENSIVO</p>
+                </button></div>
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-right filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[35], 'buttonFilter': isNotClicked[35]}" (click) = "highlightButtonFilter(35, 'position')"> 
+                  <p class = "text-item-filter-position-right">VOLANTE</p>
+                </button> </div>
+            </div>
+            <div class = "row">
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-left filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[36], 'buttonFilter': isNotClicked[36]}" (click) = "highlightButtonFilter(36, 'position')"> 
+                  <p class = "text-item-filter-position-left">CENTROAVANTE</p>
+                </button> </div>
+              <div class = "col-lg-6 col-md-6 col-xs-6 text-right filter-item"> 
+                <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[37], 'buttonFilter': isNotClicked[37]}" (click) = "highlightButtonFilter(37, 'position')"> 
+                  <p class = "text-item-filter-position-right"> PONTA</p>
+                </button> </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'noPosition'">
+        </ng-container>
+      </div> 
+      <div class="col-lg-1 col-md-2 col-xs-5 text-center"> 
+        <p class = "filter-title">Scout</p>
+        <div class = "row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[40], 'buttonFilter': isNotClicked[40]}" (click) = "highlightButtonFilter(40, 'scout')"> FINALIZAÇÕES </button> 
+          </div>
+        </div>
+        <div class="row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[41], 'buttonFilter': isNotClicked[41]}" (click) = "highlightButtonFilter(41, 'scout')"> FS </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[42], 'buttonFilter': isNotClicked[42]}" (click) = "highlightButtonFilter(42, 'scout')"> AST </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[43], 'buttonFilter': isNotClicked[43]}" (click) = "highlightButtonFilter(43, 'scout')"> GOL </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[44], 'buttonFilter': isNotClicked[44]}" (click) = "highlightButtonFilter(44, 'scout')"> RB </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class = "col-lg-12 col-md-12 col-xs-12 filter-item"> 
+            <button class = "buttonFilter" [ngClass] = "{'buttonFilterClicked': isClicked[45], 'buttonFilter': isNotClicked[45]}" (click) = "highlightButtonFilter(45, 'scout')"> DD </button>
+          </div>
+        </div>
+        <div class="row">
+        </div>
+      </div>
+    </div>
+    <div class = "row"> 
+      <div [ngSwitch] = "positionFilter">
+        <ng-container *ngSwitchCase="'position'">
+          <div class = "col-lg-offset-3 col-lg-6 slider">
+            <p class="text-center"> Rodadas </p>
+            <nouislider [config]="sliderConfig" [(ngModel)]="sliderValues"></nouislider>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'noPosition'">
+          <div class = "col-lg-offset-4 col-lg-4 slider">
+            <p class="text-center"> Rodadas </p>
+            <nouislider [config]="sliderConfig" [(ngModel)]="sliderValues"></nouislider>
+          </div>
+        </ng-container>
+    </div>
+    <div class = "row">
+      <div class = "col-lg-offset-3 col-lg-6 col-xs-offset-1 col-xs-10 add-padding">
+        <button class="btn btn-filter" (click) = "retrieveChart()"> BUSCAR </button>
+      </div>
+    </div>
+    <div class = "row" *ngIf = "showAlertSelectColumn">
+      <div class = "col-lg-offset-3 col-lg-6 col-xs-offset-1 col-xs-10 text-center">
+        <div *ngIf = "showAlertSelectColumn" class="alert alert-info alert-dismissable">
+            Você tem que selecionar um objeto em todas as colunas.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

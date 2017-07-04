@@ -1,0 +1,15 @@
+chart-title{
+  margin-top:20px;
+}
+
+.c3 svg{
+  font: 12px sans-serif;
+}
+
+.c3 bar {
+  color: #000;
+}
+
+.c3-grid .c3-xgrid-focus {
+   visibility : hidden !important;
+}

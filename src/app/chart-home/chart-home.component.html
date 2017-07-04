@@ -1,0 +1,64 @@
+<ng-progress [showSpinner]="false" [color]="'#C3DBFF'" [thick]="true"></ng-progress>
+<div class="container-fluid">
+  <div class= "row">
+    <div class="col-md-12 col-lg-12 col-xs-12">
+      <!--NAV BAR-->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+               SCOUTISTICA
+            </a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class = "nav navbar-nav navbar-right">
+              <li>
+                <a href="#" (click)="defineFilterComponent('position')" class="link-navbar">SCOUT POR JOGADOR</a> <span class="sr-only">(current)</span>
+              </li>
+              <li>
+                <a href="#" (click)="defineFilterComponent('noPosition')" class="link-navbar">SCOUT POR TIME</a> <span class="sr-only">(current)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+  
+<div class="container">
+  <!--TITULO-->
+  <div class= "row">
+    <div class="col-md-12 col-lg-12 col-xs-12 text-center">
+      <div [ngSwitch] = "positionFilter">
+        <ng-container *ngSwitchCase="'position'">
+          <h1> Scout por Jogador </h1>
+        </ng-container>
+        <ng-container *ngSwitchCase="'noPosition'">
+          <h1> Scout por Time </h1>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <!--FILTRO-->
+  <div class = "row">
+    <div class = "col-md-10 col-lg-10 col-xs-10"></div>
+    <div class = "col-md-2 col-lg-2 col-xs-22 text-right">
+      <button class="button-link btn btn-lg" (click)="filterButton()">
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+        Filtro
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-filter [sliderValues] = "sliderValues" [filterElements] = "filterElements" [positionFilter] = "positionFilter" *ngIf = "showPanel" [@fadePanel] = "true" (onFilterShow) = "showHideFilter($event)" (onSearchClick) = "searchClick($event)"></app-filter>
+<chart-player-component [@fadePanel] = "true" (chartFinishedLoading) = "stopProgressBar($event)"></chart-player-component>

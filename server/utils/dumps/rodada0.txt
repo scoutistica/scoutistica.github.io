@@ -1,0 +1,2093 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: Game; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "Game" (
+    id integer NOT NULL,
+    round_id integer NOT NULL,
+    home_team integer NOT NULL,
+    away_team integer NOT NULL,
+    score_home integer,
+    score_away integer
+);
+
+
+ALTER TABLE "Game" OWNER TO leandromachado;
+
+--
+-- Name: Game_id_seq; Type: SEQUENCE; Schema: public; Owner: leandromachado
+--
+
+CREATE SEQUENCE "Game_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Game_id_seq" OWNER TO leandromachado;
+
+--
+-- Name: Game_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: leandromachado
+--
+
+ALTER SEQUENCE "Game_id_seq" OWNED BY "Game".id;
+
+
+--
+-- Name: Performance; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "Performance" (
+    id integer NOT NULL,
+    player_id integer NOT NULL,
+    game_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    nickname character varying(255) NOT NULL,
+    "position" character varying(255) NOT NULL,
+    initials_position character varying(255) NOT NULL,
+    specific_position character varying(255),
+    goal integer DEFAULT 0,
+    assist integer DEFAULT 0,
+    suffered_foul integer DEFAULT 0,
+    committed_foul integer DEFAULT 0,
+    miss_pass integer DEFAULT 0,
+    miss_pk integer DEFAULT 0,
+    saved_pk integer DEFAULT 0,
+    miss_shot integer DEFAULT 0,
+    saved_shot integer DEFAULT 0,
+    post_shot integer DEFAULT 0,
+    steal integer DEFAULT 0,
+    save integer DEFAULT 0,
+    yellow_card integer DEFAULT 0,
+    suffered_goal integer DEFAULT 0,
+    clean_sheet integer DEFAULT 0,
+    red_card integer DEFAULT 0,
+    offside integer DEFAULT 0,
+    own_goal integer DEFAULT 0,
+    pk_saved integer DEFAULT 0
+);
+
+
+ALTER TABLE "Performance" OWNER TO leandromachado;
+
+--
+-- Name: Performance_id_seq; Type: SEQUENCE; Schema: public; Owner: leandromachado
+--
+
+CREATE SEQUENCE "Performance_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Performance_id_seq" OWNER TO leandromachado;
+
+--
+-- Name: Performance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: leandromachado
+--
+
+ALTER SEQUENCE "Performance_id_seq" OWNED BY "Performance".id;
+
+
+--
+-- Name: Player; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "Player" (
+    player_id integer NOT NULL,
+    team_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    nickname character varying(255) NOT NULL,
+    "position" character varying(255) NOT NULL,
+    initials_position character varying(255) NOT NULL,
+    specific_position character varying(255),
+    goal integer DEFAULT 0,
+    assist integer DEFAULT 0,
+    suffered_foul integer DEFAULT 0,
+    committed_foul integer DEFAULT 0,
+    miss_pass integer DEFAULT 0,
+    miss_pk integer DEFAULT 0,
+    miss_shot integer DEFAULT 0,
+    saved_shot integer DEFAULT 0,
+    post_shot integer DEFAULT 0,
+    steal integer DEFAULT 0,
+    save integer DEFAULT 0,
+    yellow_card integer DEFAULT 0,
+    suffered_goal integer DEFAULT 0,
+    clean_sheet integer DEFAULT 0,
+    red_card integer DEFAULT 0,
+    offside integer DEFAULT 0,
+    own_goal integer DEFAULT 0,
+    pk_saved integer DEFAULT 0
+);
+
+
+ALTER TABLE "Player" OWNER TO leandromachado;
+
+--
+-- Name: Round; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "Round" (
+    id integer NOT NULL,
+    round integer NOT NULL
+);
+
+
+ALTER TABLE "Round" OWNER TO leandromachado;
+
+--
+-- Name: Round_id_seq; Type: SEQUENCE; Schema: public; Owner: leandromachado
+--
+
+CREATE SEQUENCE "Round_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Round_id_seq" OWNER TO leandromachado;
+
+--
+-- Name: Round_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: leandromachado
+--
+
+ALTER SEQUENCE "Round_id_seq" OWNED BY "Round".id;
+
+
+--
+-- Name: SequelizeMeta; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "SequelizeMeta" (
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE "SequelizeMeta" OWNER TO leandromachado;
+
+--
+-- Name: Team; Type: TABLE; Schema: public; Owner: leandromachado
+--
+
+CREATE TABLE "Team" (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    initials character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE "Team" OWNER TO leandromachado;
+
+--
+-- Name: Team_id_seq; Type: SEQUENCE; Schema: public; Owner: leandromachado
+--
+
+CREATE SEQUENCE "Team_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Team_id_seq" OWNER TO leandromachado;
+
+--
+-- Name: Team_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: leandromachado
+--
+
+ALTER SEQUENCE "Team_id_seq" OWNED BY "Team".id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Game" ALTER COLUMN id SET DEFAULT nextval('"Game_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Performance" ALTER COLUMN id SET DEFAULT nextval('"Performance_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Round" ALTER COLUMN id SET DEFAULT nextval('"Round_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Team" ALTER COLUMN id SET DEFAULT nextval('"Team_id_seq"'::regclass);
+
+
+--
+-- Data for Name: Game; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "Game" (id, round_id, home_team, away_team, score_home, score_away) FROM stdin;
+82	1	266	277	\N	\N
+83	1	262	282	\N	\N
+84	1	275	267	\N	\N
+85	1	264	315	\N	\N
+86	1	283	276	\N	\N
+87	1	294	373	\N	\N
+88	1	284	263	\N	\N
+89	1	265	293	\N	\N
+90	1	303	292	\N	\N
+91	1	314	287	\N	\N
+\.
+
+
+--
+-- Name: Game_id_seq; Type: SEQUENCE SET; Schema: public; Owner: leandromachado
+--
+
+SELECT pg_catalog.setval('"Game_id_seq"', 91, true);
+
+
+--
+-- Data for Name: Performance; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "Performance" (id, player_id, game_id, name, nickname, "position", initials_position, specific_position, goal, assist, suffered_foul, committed_foul, miss_pass, miss_pk, saved_pk, miss_shot, saved_shot, post_shot, steal, save, yellow_card, suffered_goal, clean_sheet, red_card, offside, own_goal, pk_saved) FROM stdin;
+2027	37984	90	Mário Lúcio Duarte Costa	Aranha	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2032	87486	89	Matheus Reis de Lima	Matheus Reis	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2037	98945	82	Derlan de Oliveira Bento	Derlan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2042	77500	90	Yago Fernando da Silva	Yago	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2047	78464	90	Fábio Farroco Braga	Fábio Braga	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2052	95798	88	Gustavo Costa da Silva Machado	Gustavo Bochecha	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2057	84917	90	Jeferson de Araújo de Carvalho	Jeferson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2062	38425	90	Fábio Ferreira da Silva	Fábio Ferreira	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2067	50427	90	Ricardo Martins de Araújo	Kadu	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2072	98286	89	Lucas Thiago Revuelta Billewicz	Bolívia	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2077	94975	89	Marco Antônio Rosa Furtado Júnior	Marco Antônio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2082	88136	90	Ivan Quaresma da Silva	Ivan	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2087	99425	82	Felipe Souza Moreno Sampaio	Felipe	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2092	97771	90	Wytallo Thiago Lima da Silva	Thiaguinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2097	87098	89	Matheus Vieira Campos Peixoto	Matheus Peixoto	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2102	91972	89	João Paulo Queiroz Moraes	João Paulo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2107	72595	91	Mauricio Kozlinski	Mauricio Kozlinski	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2112	86874	91	Edson Carlos Santos Lima Junior	Capa	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2117	77529	91	Leandro da Silva	Leandro Silva	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2122	68986	91	Gustavo dos Santos	Gustavo Santos	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2127	92081	82	Richarlison Andrade	Richarlison 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2132	72565	91	Lázaro Luan Scapolan	Luan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2137	68827	82	Renato de Araújo Chaves Júnior	Renato Chaves	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2142	95477	91	Eduardo Menezes	Menezes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2147	82515	82	Reginaldo Manoel da Silva Júnior	Reginaldo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2152	85626	82	Leonardo Pinheiro da Conceição	Léo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2157	88310	91	Lucas Itamir de Sá	Lucas de Sá	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2162	98402	82	Marcus Wendel Valle da Silva	Wendel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2167	38156	85	Artur Guilherme Moraes Gusmão	Artur Moraes	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2172	90366	82	Luiz Fernando Ferreira Maximiliano	Luiz Fernando 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2177	79892	85	Odair Souza 	Nenén	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2182	84718	91	Denilson Pereira Junior	Denilson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2187	80337	85	Arthur Caíke do Nascimento Cruz	Arthur 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2192	84927	85	Raphael Guimarães de Paula	Dodô	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2197	92497	82	Douglas Augusto Soares Gomes	Douglas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2202	93791	82	Daniel Sampaio Simões	Danielzinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2207	94336	82	Mateus Norton Gomes Chaves	Mateus Norton	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2212	82791	91	Toshiya Tojo	Toshi	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2217	97528	82	Wesley Frazan Bernardo	Frazan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2222	97540	85	Vinícius Szeuczuk Ribeiro	Vinícius Guarapuava	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2227	42330	87	Felipe Garcia dos Prazeres	Felipe Garcia	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2232	38908	82	Renato Dirnei Florêncio	Renato	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2237	68884	87	Klever Rodrigo Gomes Rufino	Klever	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2242	38768	84	André Luiz Tavares	Andrezinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2247	71549	84	Kelvin Mateus de Oliveira	Kelvin	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2028	75295	83	José Paolo Guerrero Gonzales	Paolo Guerrero	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2029	94207	88	Guilherme Augusto Vieira dos Santos	Guilherme	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2030	97352	88	Luiz Henrique Pachu Lira	Pachu	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2031	71892	89	Wellington do Nascimento Silva	Wellington Silva	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2033	82628	89	Guilherme de Jesus da Silva	Tinga	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2034	38909	83	Diego Ribas da Cunha	Diego	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2035	61149	90	Lucca Borges Brito	Lucca	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2036	37608	85	Cristian Mark Junio Nascimento Oliveira Baroni	Cristian	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2038	95543	88	Renan Gorne Silva	Renan Gorne	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2039	80370	89	Edson Felipe da Cruz	Edson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2040	70666	90	Marllon Gonçalves Jerônimo Borges	Marllon	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2041	71719	90	Elton Junior Melo Ataíde	Elton	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2043	37306	90	Gilson Kleina	Gilson Kleina	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2044	69010	90	João Carlos Heidemann	João Carlos	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2045	84313	89	Antônio Filipe Gonzaga de Aquino	Feijão	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2046	71937	89	Paulo Roberto Valoura Júnior	Juninho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2048	80129	90	Jadson Alves dos Santos	Jadson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2049	79042	89	Tiago Pagnussat	Tiago 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2050	78897	90	Marinaldo dos Santos Oliveira	Naldo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2051	95054	89	Waltenecir da Silva Ramos Júnior	Júnior Ramos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2053	83817	90	Clayson Henrique da Silva Vieira	Clayson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2054	73281	89	Renê dos Santos Júnior	Renê Júnior	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2055	94971	89	Luís Fernando Santos da Conceição	Luís Fernando	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2056	85591	90	Artur Sérgio Batista de Souza	Artur	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2058	38021	90	Wendel Geraldo Maurício e Silva	Wendel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2059	38138	85	João Alves de Assis Silva	Jô	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2060	86411	90	Breno Gonçalves Lopes	Breno Lopes	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2061	42213	90	Fernando Paixão da Silva	Fernando Bob	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2063	89285	89	Matheus de Sales Cabral	Matheus Sales	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2064	38067	85	Danilo Gabriel de Andrade	Danilo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2065	83263	89	Yuri Lima Lara	Yuri	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2066	51319	90	Renato Adriano Jacó de Morais	Renato Cajá	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2068	90934	89	Sávio Roberto Julião Figueiredo	Sávio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2069	71927	89	Diego da Silva Rosa	Diego Rosa	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2070	86432	90	Ramon Machado de Macedo	Ramon 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2071	53669	90	Lins Lima de Britto	Lins	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2073	77809	90	William de Oliveira Pottker	William Pottker	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2074	55594	90	Cássio Luís Rissardo	Xuxa	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2075	91203	89	Éder Ferreira Graminho	Éder 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2076	70934	89	Jackson de Souza	Jackson	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2078	80189	89	Lucas Fonseca da Silva	Lucas Fonseca	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2079	68808	90	Severino do Ramo Clementino da Silva	Nino Paraíba	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2080	93369	89	Rodrigo Nascimento França 	Rodrigo Becão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2081	82647	89	Régis Augusto Salmazzo	Régis	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2083	68987	90	João Vitor Lima Gomes	João Vitor	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2084	91715	90	Matheus Henrique Cassini de Paula	Matheus Cassini	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2090	82455	89	José Rafael Vivian	Zé Rafael 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2094	74271	89	Edigar Junio Teixeira Lima 	Edigar Junio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2098	84761	91	Claudinei dos Santos Oliveira	Claudinei Oliveira	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2105	68693	89	Pablo Estifer Armero	Armero	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2110	38431	82	Diego Cavalieri	Diego Cavalieri	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2114	98281	91	Fabian Maria Lago Vilela de Abreu	Fabian	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2121	99283	91	Junior Henrique Eichelberger	Henrique	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2126	96464	91	Mauricio Tomazi Pinheiro	Mauricio	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2129	49673	82	Júlio César Jacobi	Júlio César	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2135	95828	91	João Vitor Gervásio Wanderley	João Vitor	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2141	68895	82	Wellington Alves da Silva	Wellington Silva	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2146	80188	82	Marcos Junio Lima dos Santos	Marcos Junior	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2149	85004	82	Marcos Felipe de Freitas Monteiro	Marcos Felipe 	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2154	86974	91	Caio César da Silva Silveira	Caio César	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2159	87999	82	Gustavo Henrique Furtado Scarpa	Gustavo Scarpa	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2166	51042	85	Luiz Diallison de Souza Alves	Apodi	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2171	78850	85	Reinaldo Manoel da Silva	Reinaldo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2174	42232	85	William José de Souza	Amaral	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2179	90899	82	Lucas Fernandes	Lucas Fernandes	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2184	81798	85	Rosicley Pereira da Silva	Rossi	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2191	84703	85	Nilton Soares Rodrigues	Niltinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2194	87859	85	Emilio Enrique Zeballos Gutiérrez	Zeballos	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2200	99032	91	João Paulo Ferreira Lourenço	Lourenço	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2205	37623	84	Rafael Marques Pinto	Rafael Marques	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2211	89156	85	Nathan Pelae Cardoso	Nathan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2214	97527	82	Matheus Alessandro dos Santos Pereira	Matheus Alessandro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2220	94286	85	Pedro Henrique Perotti	Perotti	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2226	97536	85	Bryan Borges Mascarenhas	Bryan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2231	51415	87	Roger de Carvalho	Roger Carvalho	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2235	38225	84	Luiz Guilherme da Conceição Silva	Muriqui	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2239	38913	84	Anderson Luiz de Carvalho	Nenê	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2246	60853	84	Julio Daniel dos Santos Rodríguez	Julio dos Santos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2249	60802	84	Bruno Vieira Gallo	Bruno Gallo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2254	73876	84	Jomar Herculano Lourenço	Jomar	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2261	98425	85	Luiz Pedro Giongo	Luiz Pedro	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2266	84893	84	Henrique Silva Milagres	Henrique	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2269	86486	84	Milton Mendes	Milton Mendes	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2275	93787	84	Andrey Ramos do Nascimento	Andrey	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2281	50307	83	Adilson Warken	Adilson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2283	98910	87	João Pedro Ribeiro dos Reis	João Pedro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2290	71090	87	João Filipe Rabelo da Costa e Silva	João Filipe	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2294	82876	87	Roberto Pimenta Vinagre Filho	Betinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2300	90715	87	Luiz Fernando Moraes dos Santos	Luiz Fernando 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2306	82943	82	Matheus Antunes Ribeiro	Matheus Ribeiro	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2085	97768	90	Reynaldo César Moraes	Reynaldo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2091	62069	89	Maikon Fernando Souza Leite	Maikon Leite	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2093	95335	90	Matheus Sousa de Jesus	Matheus Jesus	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2100	96870	90	Emerson Aparecido Leite de Souza Junior	Emerson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2104	94978	89	Kaynan Ribeiro Cruz	Kaynan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2108	87877	82	Júnior Nazareno Sornoza Moreira	Sornoza	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2116	40006	82	Abel Carlos da Silva Braga	Abel Braga	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2120	37840	91	Gustavo Franchin Schiavolin	Gustavo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2124	62997	91	João Paulo Purcino de Almeida	João Paulo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2131	50362	82	Lucas Rios Marques	Lucas	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2133	50856	82	Henrique Adriano Buss	Henrique	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2140	73513	82	Francinilson Santos Meireles	Maranhão	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2143	80537	82	Michael Vinicius Silva de Morais	Michael	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2150	38400	91	Vinícius Pacheco dos Santos	Vinícius Pacheco	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2156	87874	82	Jefferson Gabriel Orejuela Izquierdo	Orejuela	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2158	97228	91	Carlos Vitor da Silva Nascimento	Santarém	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2164	38279	85	Wellington Pereira do Nascimento	Wellington Paulista	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2170	94102	91	Matheus Gutz	Matheus	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2176	69008	85	Hélio Hermito Zampier Neto	Neto	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2180	81898	85	Osman de Menezes Venâncio Junior	Osman	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2185	89695	91	Iury Lirio Freitas de Castilho	Iury	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2189	82567	85	Moisés Wolschick	Moisés	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2193	86863	85	Luiz Otávio da Silva Santos	Luiz Otávio 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2199	90843	85	Elias Martello Curzel	Elias	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2206	97537	85	Gabriel Dal Toé Busanello	Gabriel Busanello	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2210	97452	82	Marcos Vinícius Silva Rocha Calazans	Marcos Calazans	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2215	96804	91	Vitor da Silva Vieira	Vitor	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2221	95483	85	Luiz Felipe Schwartz Dal Piva 	Luiz Felipe	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2225	98419	85	Ronei Gebing	Ronei	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2230	37663	84	Julio Cesar Coelho de Moraes Júnior	Julio Cesar	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2233	60787	87	Willians dos Santos Santana	Willians	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2241	73318	87	Daniel Fortunato Borges	Daniel Borges	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2245	69249	84	Martín Andrés Silva	Martín Silva	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2250	98421	85	Kendy Tateishi Berbel	Japa	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2256	98422	85	Mateus da Silva Fauth	Mateus Fauth	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2258	98424	85	Alisson Fernando Salles	Alisson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2264	80313	84	Gilberto Moraes Júnior	Gilberto 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2271	86776	84	Jordi Almeida	Jordi	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2274	93108	84	Mateus da Silva Vital Assumpção	Mateus Pet	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2278	98056	87	Luiz Felipe Machado de Souza	Luiz Felipe	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2285	78495	87	Marcos de Paula Dutra	Marcos	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2289	99388	87	Lucas Vinícius Santos Bernardino	Lucas Vinícius	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2295	50402	82	Kayke Moreno de Andrade Rodrigues	Kayke	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2301	70046	82	Victor Ferraz Macedo	Victor Ferraz	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2305	91100	87	Alípio Duarte Brandão	Alípio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2086	84585	89	Agustín Lionel Allione	Allione	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2089	97769	90	Yuri Jonathan Vitor Coelho	Yuri	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2096	68784	91	Sérgio Dutra Júnior	Júnior Dutra	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2101	97454	90	Edinan Brigola Stanisoski	Edinan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2106	78584	91	Douglas Alan Schuck Friedrich	Douglas Friedrich	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2111	37646	91	Ebert Willian Amâncio	Betão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2113	98888	91	Cláudio Vitor Morais de Lima Cruz	Cláudio Vitor	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2118	83522	91	Fagner Ironi Daponte	Fagner Alemão	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2125	42222	82	Osvaldo Lourenço Filho	Osvaldo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2128	50407	82	Marco Antonio de Mattos Filho	Marquinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2136	68887	82	Welington Pereira Rodrigues	Gum	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2139	84896	91	Lucas Otávio Veiga Lopes	Lucas Otávio 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2145	90768	85	Fabrício Bruno Soares de Faria	Fabrício Bruno	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2151	83791	91	Diego Jardel Koester	Diego Jardel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2155	38150	91	Marcos Vicente dos Santos	Marquinhos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2160	98401	82	Patrick Luan dos Santos	Patrick Luan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2165	39850	85	Vagner Carmo Mancini	Vagner Mancini	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2169	54797	85	Túlio Vinícius Fróes de Melo	Túlio de Melo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2175	78407	85	Douglas Ricardo Grolli	Douglas Grolli	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2178	74060	85	Luiz Antonio de Souza Soares	Luiz Antonio 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2186	94105	91	Devid de Santana Silva	Devid	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2188	92438	82	Matheus Phillipe Coutinho Gomes	Matheus Phillipe	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2195	90634	85	Lucas da Silva Izidoro	Lucas Mineiro	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2201	89696	91	Romulo dos Santos de Souza	Romulo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2204	91973	85	Lucas Marques de Oliveira	Lucas Marques	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2208	94003	85	Lucas Luiz Scalon	Scalon	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2213	94249	85	Lourency do Nascimento Rodrigues	Lourency	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2219	98412	85	Giovanni Silva Tiepo	Tiepo	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2223	97535	85	Hiago Correa Silveira Cena	Hiago	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2228	98420	85	Bruno Bortolini Jackel	Bruno	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2234	37674	84	Wagner Ferreira dos Santos	Wagner	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2240	38508	84	Eder Luis de Oliveira	Eder Luis	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2243	70929	87	Guilherme Ferreira Pinto	Negueba	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2251	71704	84	Andrés Ramiro Escobar Díaz	Manga Escobar	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2253	89150	84	Jean Carlos de Souza Irmer	Jean	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2259	74081	84	Guilherme Costa Machado Silveira	Guilherme Costa	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2263	62128	87	Walter Henrique da Silva	Walter	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2270	92057	84	Gabriel Félix dos Santos	Gabriel Félix	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2273	93785	84	Alan Cardoso de Andrade	Alan Cardoso	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2280	93956	87	Edson Fernandes Botelho Júnior	Edson Júnior	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2286	79193	87	Jucimar Lima Pacheco	Abuda	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2288	79334	87	Ricardo César Dantas da Silva	Ricardo Silva	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2293	86713	87	Jonathan Francisco Lemos	Jonathan	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2298	51318	82	Leandro Donizete Gonçalves da Silva	Leandro Donizete	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2303	69040	82	Vladimir Orlando Cardoso de Araújo Filho	Vladimir	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2088	92193	90	Ravanelli Ferreira dos Santos	Ravanelli	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2095	92762	90	Erick Lender Salles	Erick Salles	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2099	86932	89	Gustavo Henrique da Silva Sousa	Gustavo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2103	96965	91	Leonardo Thomas Lopes	Léo Lopes	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2109	39572	82	José Renato da Silva Júnior	Renato	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2115	92084	89	Mário Sérgio Pereira Junior	Mário	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2119	38440	82	Lucas Pierre Santos Oliveira	Pierre	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2123	93986	91	Luis Ángel Salazar Cuesta	Salazar	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2130	84691	91	Judson Silva Tavares	Judson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2134	53731	91	Ferdinando Pereira Leda	Ferdinando	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2138	88309	91	Renato da Silva Júnior	Renato	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2144	81905	82	José Henrique da Silva Dourado	Henrique Dourado	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2148	97708	91	Thiago Silva e Silva	Thiago 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2153	98282	91	Liniker Borges Santos Corado	Liniker	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2161	94885	91	Leonardo Felipe Santos da Silva	Léo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2163	63110	85	Alan Luciano Ruschel	Alan Ruschel	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2168	68725	85	Diego Renan de Lima Ferreira	Diego Renan	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2173	78991	85	Moisés Ribeiro Santos	Moisés Ribeiro	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2181	91815	82	Ygor Nogueira de Paula	Nogueira	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2183	80140	85	Nadson da Silva Almeida	Nadson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2190	83683	85	Andrei Girotto	Andrei Girotto	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2196	89273	85	João Pedro Maturano dos Santos	João Pedro 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2198	95549	91	Marcelo Leite Pereira	Marcelinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2203	91743	85	Wesley Natã Wachholz	Wesley Natã	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2209	94583	82	Pedro Guilherme Abreu dos Santos	Pedro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2216	94004	85	Andrei Alba	Andrei Alba	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2218	94288	85	Guilherme Natan de Lima	Lima	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2224	98418	85	Igor Rempel Heinen	Igor	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2229	37645	84	Marcelo Mendonça de Mattos Terra	Marcelo Mattos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2236	63177	87	Luiz Severo Júnior	Júnior Viçosa	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2238	37919	84	Luis Fabiano Clemente	Luis Fabiano	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2244	70061	87	Marcus Winícius Silva Lima	Marcus Winícius	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2248	38910	82	Ricardo de Oliveira	Ricardo Oliveira	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2255	98423	85	Gabriel Antônio Rostirolla	Gabriel Alemão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2260	73446	84	Éderson Alves Ribeiro Silva	Éderson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2265	85211	84	Thalles Lima	Thalles	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2268	80196	84	Glaybson Yago Souza Lisboa	Yago Pikachu	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2276	77544	87	Jorge de Moura Xavier	Jorginho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2279	92144	87	Denilson de Araújo Santos	Denilson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2284	62121	82	Vanderlei Farias da Silva	Vanderlei	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2291	80373	87	Wanderson Carvalho de Oliveira	Wanderson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2296	40990	82	Dorival Silvestre Júnior	Dorival Júnior	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2299	90061	87	Bruno de Jesus Pacheco	Bruno Pacheco	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2304	70986	82	Leonardo Cittadini	Léo Cittadini	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2308	85425	82	João Paulo Silva Martins	João Paulo	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2252	72745	84	Damián Ariel Escudero	Escudero	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2257	78077	84	Madson Ferreira dos Santos	Madson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2262	37627	84	Rodrigo Oliveira de Bittencourt	Diguinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2267	37644	84	Rodrigo Baldasso da Costa	Rodrigo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2272	91654	87	Daniel da Silva dos Anjos	Daniel dos Anjos	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2277	91917	87	Adniellyson da Silva Oliveira	Silva	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2282	98315	87	Evanderson Costa da Silva	Evanderson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2287	99379	87	Guilherme Borges Neves	Borges	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2292	80441	87	Rafael de Jesus Bonfim 	Bonfim 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2297	88539	87	João Vitor Pereira de Alcantara	João Vitor 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2302	90716	87	Eduardo Felipe Lacerda de Almeida	Eduardo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2307	68929	82	Thiago Ribeiro Cardoso	Thiago Ribeiro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2312	72879	82	Vladimir Javier Hernández Rivero	Vladimir Hernández	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2317	89342	82	Wanderson de Jesus Martins	Caju	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2322	90569	82	Yuri Oliveira Lima	Yuri	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2327	94045	82	Diego Gomes dos Santos	Diego Gomes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2332	96966	82	Arthur Gomes Lourenço	Arthur Gomes	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2337	37851	83	Maicosuel Reginaldo de Matos	Maicosuel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2342	42140	83	Felipe Augusto Santana	Felipe Santana	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2347	60784	83	Rafael de Souza Pereira	Rafael Carioca	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2352	81223	83	Frickson Rafael  Erazo Vivero	Erazo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2357	98766	83	Emanuel Rocha Dos Santos	Emanuel	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2362	84382	83	Danilo Carvalho Barcelos	Danilo Barcelos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2367	97545	83	Pedro Santos Filho	Pedro	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2372	97543	83	Fernando Rodrigues Caixeta Barbosa	Fernando	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2377	96433	83	Ralph Machado Dias	Ralph	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2382	95022	83	Thalis Henrique Cantanhede	Thalis 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2387	73515	83	Gabriel Santana Pinto	Gabriel	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2392	36612	84	José Roberto da Silva Júnior	Zé Roberto	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2397	95875	84	Hugo da Conceição Borges Alves	Hugo Borges	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2402	37673	84	Alecsandro Barbosa Felisbino	Alecsandro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2407	42145	84	Egídio de Araújo Pereira Júnior	Egídio	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2412	86120	84	Miguel Angel Borja Hernandez	Borja	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2417	87211	84	Eduardo Augusto Baptista Miguel	Eduardo Baptista	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2422	94509	84	Raphael Cavalcante Veiga	Raphael Veiga	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2427	84848	84	Erik Nascimento Lima	Erik	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2432	85083	84	Vinicius Silvestre da Costa	Vinicius Silvestre	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2437	37688	86	Cícero Santos	Cícero	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2442	71123	86	Thiago Henrique Mendes Ribeiro	Thiago Mendes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2447	73649	86	Lucas David Pratto	Lucas Pratto	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2452	73619	86	Wellington Silva Sanches Aguiar	Wellington Nem	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2457	83772	86	Neilton Meira Mestzk	Neilton	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2462	98952	86	Leonardo Natel Vieira	Léo Natel	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2467	97520	86	Shaylon Kallyson Cardoso	Shaylon	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2472	82411	86	Christian Alberto Cueva Bravo	Cueva	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2309	87192	82	José Carlos Cracco Neto	Zeca	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2314	87552	82	Vitor Frezarin Bueno	Vitor Bueno	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2319	88225	82	Daniel Guedes da Silva	Daniel Guedes 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2325	93368	82	Lucas Veríssimo da Silva	Lucas Veríssimo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2328	96328	82	Matheus Oliveira Santos	Matheus Oliveira	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2335	38162	83	Frederico Chaves Guedes	Fred	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2339	52950	83	Víctor Leandro Bagy	Victor	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2344	68979	83	Giovanni Aparecido Adriano dos Santos	Giovanni	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2348	80944	83	Johnath Marlone Azevedo da Silva	Marlone	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2354	98774	83	Flávio Augusto De Castro	Flávio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2359	98767	83	Anderson Cordeiro Costa	Anderson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2364	68953	83	Leandro Damião da Silva dos Santos	Leandro Damião	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2368	70009	83	Romulo Borges Monteiro	Romulo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2373	97349	83	Daniel dos Santos Penha	Daniel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2378	99353	83	Lucas de Oliveira Antunes	Lucas Índio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2383	95794	83	Nathanael Ananias da Silva	Nathan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2390	93789	84	Caio Monteiro Costa	Caio Monteiro	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2396	38140	84	Fernando Buttenbender Prass	Fernando Prass	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2400	37657	84	Eduardo Luís Abonizio de Souza	Edu Dracena	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2403	62047	84	Jean Raphael Vanderlei Moreira	Jean	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2408	68920	84	Eduardo Pereira Rodrigues	Dudu	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2416	78855	84	Thiago dos Santos	Thiago Santos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2421	95770	84	Victor Hugo Santana Carvalho	Vitinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2423	93146	84	Yan Matheus Santos Souza	Yan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2429	38062	86	Diego Alfredo Lugano Moreno	Lugano	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2434	63422	86	Jucilei da Silva	Jucilei	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2438	50408	86	Breno Vinicius Rodrigues Borges	Breno	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2445	71227	86	Maicon Pereira Roque	Maicon	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2451	79041	86	Antonio Thomaz Santos de Barros	Thomaz	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2453	91260	86	Lucas Estella Perri	Lucas Perri	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2458	95660	86	Felipe Araruna Hoffman	Araruna	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2465	95332	86	Marcio Antonio de Sousa Júnior	Marcinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2471	38421	86	Rafael da Silva Francisco	Rafinha	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2475	50324	86	Hudson Rodrigues dos Santos	Hudson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2479	50459	86	Leonardo Renan Simões de Lacerda	Léo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2485	78414	86	Rafael Ferreira Donato	Rafael Donato	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2489	74140	86	José Élber Pimentel da Silva	Élber	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2494	79701	86	Lucas Silva Borges	Lucas Silva	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2498	87833	86	Luis Alberto Caicedo Medina	Luis Caicedo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2504	97653	86	Murilo Cerqueira Paim	Murilo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2510	97856	86	Lucas de Souza Ventura	Nonoca	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2513	38738	88	Douglas dos Santos	Douglas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2518	69160	88	Gastón Nicolás Fernández	Gastón Fernández	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2523	68758	88	Luiz Fernando Pereira da Silva	Fernandinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2528	79966	88	Rondinelly de Andrade Silva	Rondinelly	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2535	91156	83	Jesiel Cardoso Miranda	Jesiel	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2310	72376	82	Cléber Janderson Pereira Reis	Cléber	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2315	78248	82	Gustavo Henrique Vernes	Gustavo Henrique	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2318	90285	82	Bruno Henrique Pinto	Bruno Henrique	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2323	79035	82	Luiz Felipe do Nascimento dos Santos	Luiz Felipe	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2330	97680	82	Yan Oliveira Lima	Yan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2333	54395	83	Elias Mendes Trindade	Elias	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2340	70317	83	Eron Santos Lourenço	Eron	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2343	63219	83	Luan Madson Gedeão De Paiva	Luan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2350	63013	83	Marcos Luis Rocha Aquino	Marcos Rocha	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2353	81682	83	Juan Ramón Cazares Sevillano	Cazares	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2361	38311	83	Márcio Rodrigues Araújo	Márcio Araújo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2366	98765	83	José Marcos Costa Martins	Marquinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2370	70173	83	Ederson Honorato Campos	Ederson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2375	71709	83	Gustavo Leonardo Cuellar Gallego	Cuéllar	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2380	95118	83	Thiago Henrique Fernandes Valle	Thiago Henrique	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2385	94854	83	César de São José Morais	César	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2388	92614	91	Rafaelson Bezerra Fernandes	Rafaelson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2394	95840	84	Lucas Barboza Rodrigues	Lucas Barboza 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2401	37718	84	Marcos Arouca da Silva	Arouca	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2405	38545	84	Felipe Melo de Carvalho	Felipe Melo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2410	85931	84	Hyoran Kaue Dalmoro	Hyoran	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2414	72605	84	Vitor Hugo Franchescoli de Souza	Vitor Hugo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2418	89898	84	Róger Krug Guedes	Róger Guedes	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2424	93378	84	Augusto de Souza Silva	Augusto	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2430	50421	86	Wesley Lopes Beltrame	Wesley	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2433	95936	84	Daniel Cerântula Fuzato	Daniel Fuzato	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2441	63128	86	Douglas Silva Bacelar	Douglas	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2443	70222	86	Sidney Aparecido Ramos da Silva	Sidão	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2449	68932	86	Renan Ribeiro	Renan Ribeiro	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2456	89839	86	Andres Eliseo Chavez	Andres Chavez	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2460	94931	86	Lucas Fernandes da Silva	Lucas Fernandes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2463	97645	86	Thiago Couto Wenceslau	Thiago Couto	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2470	37798	86	Rafael Augusto Sobis do Nascimento	Rafael Sobis	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2476	37656	86	Fábio Deivson Lopes Maciel	Fábio	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2478	82627	86	Luiz de Araujo Guimaraes Neto	Luiz Araújo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2484	60819	86	Anderson Vital da Silva	Dedé	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2488	62104	86	Róbson Michael Signorini	Robinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2493	68893	91	André Luiz Barretto Silva Lima	André Lima	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2501	89190	86	Judivan Flor da Silva	Judivan 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2505	93869	86	Lucas Oliveira de França	Lucas França	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2509	37701	88	Leonardo da Silva Moura	Léo Moura	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2516	50328	88	Marcelo Oliveira Ferreira	Marcelo Oliveira	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2521	69282	88	Lucas Ramón Barrios Arioli	Lucas Barrios	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2525	71920	88	Michel Ferreira dos Santos	Michel 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2530	78371	88	Miller Alejandro Bolaños Reasco	Miller Bolaños	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2311	89637	82	Thiago Maia Alencar	Thiago Maia	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2316	78839	82	Gabriel Bordinhão Gasparotto	Gabriel Gasparotto	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2321	87470	82	Thaciano Mickael da Silva	Thaciano	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2324	90651	82	Rodrigo Gomes dos Santos	Rodrigão	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2329	84851	83	Lucas Cândido Silva	Lucas Cândido	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2336	38229	83	Fábio Santos Romeu	Fábio Santos	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2338	68925	83	Leonardo Fabiano da Silva e Silva	Leonardo Silva	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2346	50369	83	Carlos Eduardo Marques	Carlos Eduardo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2351	36540	83	Juan Silveira dos Santos	Juan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2355	52253	83	Réver Humberto Alves Araújo	Réver	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2358	83004	83	Rómulo Otero Vásquez	Otero	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2365	69022	83	Marcelo Cirino da Silva	Marcelo Cirino	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2369	50301	83	Everton Cardoso da Silva	Everton	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2376	96532	83	Adson Felippe Marques da Silva	Adson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2381	50348	83	Darío Leonardo Conca	Conca	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2386	95023	83	Luis Guilherme Castro de Melo	Luis Guilherme	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2389	93788	84	Evander da Silva Ferreira	Evander	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2393	42116	84	Willian Gomes de Siqueira	Willian	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2399	37607	84	Michel Fernandes Bastos	Michel Bastos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2404	63158	84	Moisés Lima Magalhães	Moisés	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2409	72290	84	Jailson Marcelino dos Santos	Jailson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2413	74213	84	Alejandro Abraham Guerra Morales	Alejandro Guerra	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2419	79887	84	Fabiano Leissmann	Fabiano	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2425	80692	84	Luan Garcia Teixeira	Luan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2431	37281	86	Luis Antônio Venker de Menezes	Mano Menezes	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2435	42499	86	Bruno Vieira do Nascimento	Bruno	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2439	51175	86	Denis Cesar de Matos	Denis	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2446	62129	86	Wellington Aparecido Martins	Wellington	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2450	73800	86	Rodrigo Caio Roquette Russo	Rodrigo Caio	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2454	86227	86	Andrew Erik Feitosa	Morato	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2461	80583	82	Lucas Rafael Araujo Lima	Lucas Lima	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2466	50317	82	David Braz de Oliveira Filho	David Braz	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2469	77959	82	Jonathan Copete Valencia	Copete	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2474	37694	86	Henrique Pacheco de Lima	Henrique	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2481	49674	86	Fabricio dos Santos Silva	Fabrício	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2486	70916	86	Diogo Barbosa Mendanha	Diogo Barbosa	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2491	78632	86	Bryan Silva Garcia	Bryan	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2496	81150	86	Mayke Rocha de Oliveira	Mayke	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2499	87863	86	Giorgian Daniel de Arrascaeta Benedetti	Arrascaeta	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2506	94962	86	Lucas Emanoel Leite Romão	Lucão	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2511	38523	88	Edílson Mendes Guimarães	Edílson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2515	37770	88	Marcelo Grohe	Marcelo Grohe	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2519	72079	88	Bruno Cortês Barbosa	Bruno Cortez	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2524	72491	88	Matheus Simonete Bressanelli	Bressan	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2531	89693	83	Leonan José Valandro Gomes	Leonan	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2313	78548	82	Jean Mota Oliveira de Sousa	Jean Mota	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2320	90566	82	Rafael Vinicius Carvalho Longuine	Rafael Longuine	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2326	95837	82	Fabián Ariel Noguera	Fabián Noguera	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2331	94044	82	John Victor Maciel Furtado	John Victor	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2334	37655	83	Rafael Martiniano de Miranda Moura	Rafael Moura	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2341	38246	83	Robson de Souza	Robinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2345	61211	83	Carlos Cesar Neves	Carlos Cesar	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2349	79437	83	Roger Machado Marques	Roger Machado 	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2356	79066	83	Alex Roberto Santana Rafael 	Alex Muralha	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2360	62086	83	Marcos Rogério Ricci Lopes	Pará	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2363	97546	83	Marco Túlio Oliveira Lemos	Marco Túlio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2371	97544	83	João Vitor Moura Cardoso	João Moura	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2374	71066	83	Federico Mancuello	Mancuello	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2379	73421	83	Rafael Vaz dos Santos	Rafael Vaz	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2384	95651	83	Filipe Rodrigues de Souza Santos	Filipinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2391	95823	84	Yuri Duarte Filho	Yuri Duarte	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2395	95876	84	Douglas Luiz Soares de Paulo	Douglas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2398	99424	86	Edson Militão	Edson Militão	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2406	38957	84	Rafael Marques Mariano	Rafael Marques	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2411	86485	84	Marcos da Silva França	Keno	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2415	86686	84	Danilo das Neves Pinheiro	Tchê Tchê	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2420	79702	84	Antônio Carlos Cunha Capocasali Júnior	Antônio Carlos 	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2426	83615	84	Thiago Martins Bueno	Thiago Martins	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2428	93882	83	Cleiton Schwengber	Cleiton	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2436	85241	84	Yerry Fernando Mina González	Yerry Mina	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2440	62024	86	Edimar Curitiba Fraga	Edimar	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2444	61188	86	Gilberto Oliveira Souza Júnior	Gilberto	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2448	77777	86	João Felipe Schimdt Urbano	João Schmidt 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2455	87350	86	Julio Buffarini	Buffarini	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2459	89343	86	Carlos Eugenio Júnior Tavares dos Santos	Júnior Tavares	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2464	97341	86	Rogério Ceni	Rogério Ceni	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2468	84554	86	Lucas Cavalcante Silva Afonso	Lucão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2473	69014	86	Manoel Messias Silva Carvalho	Manoel	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2480	54424	86	Willians Domingos Fernandes	Willians	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2483	73869	86	John Lennon Silva Santos	Lennon	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2490	80363	86	Alejandro Ariel Cabral	Ariel Cabral	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2495	86797	86	Raniel Santana de Vasconcelos	Raniel	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2500	84558	86	Lucas Daniel Romero	Lucas Romero	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2503	90535	86	Alex Sandro dos Santos Apolinario	Alex	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2508	38196	88	Maicon Thiago Pereira de Souza	Maicon	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2514	51705	88	Bruno Rodrigo Fenelon Palomo	Bruno Rodrigo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2520	60859	88	Jael Ferreira Vieira	Jael	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2526	78012	88	Yuri Souza Almeida	Yuri Mamute	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2529	74075	88	Wallace Oliveira dos Santos	Wallace Oliveira	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2536	87158	83	Cicero Clebson Alves Santana	Cícero	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2477	38277	86	Thiago Neves Augusto	Thiago Neves	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2482	68928	86	Rafael Pires Monteiro	Rafael	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2487	73721	86	Marcos Vinícius de Jesus Araújo	Marcos Vinícius	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2492	80318	86	Ezequiel Jacinto de Biasi	Ezequiel 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2497	81845	86	Alisson Euler de Freitas Castro	Alisson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2502	89676	86	Nickson Gabriel Reis Silva	Nickson	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2507	91094	86	Ramón Darío Ábila	Ábila	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2512	41929	88	Renato Portaluppi	Renato Gaúcho	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2517	71572	88	Gabriel Rybar Blos	Gabriel	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2522	71818	88	Bruno Medeiros Grassi	Bruno Grassi	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2527	80853	88	Pedro Tonon Geromel	Pedro Geromel	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2532	78715	88	Ramiro Moschen Benetti	Ramiro	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2537	87393	83	Gabriel Costa França	Gabriel	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2542	72490	91	Frederico Burgel Xavier 	Fred	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2547	78578	91	Paulo Luiz Beraldo Santos	Paulinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2552	86859	91	José Welison da Silva	José Welison	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2557	90309	91	David Correa da Fonseca	David	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2562	91101	91	Ronaldo de Oliveira Strada	Ronaldo	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2567	98221	91	Ilson Cedric Borges de Accacio Lima	Cedric	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2572	38100	90	Severino dos Ramos Durval da Silva	Durval	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2577	87028	88	Luiz Humberto da Silva Silva	Beto da Silva	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2582	90290	88	Jaílson Marques Siqueira	Jailson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2587	38632	90	Matheus Ferraz Pereira	Matheus Ferraz	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2592	68911	90	Diego Souza de Andrade	Diego Souza	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2597	73384	90	Samuel Xavier Brito	Samuel Xavier	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2602	78968	90	Leandro Marcos Pereira	Leandro Pereira	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2607	94214	83	Leonardo Campos Duarte da Silva	Léo Duarte	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2612	68938	85	Giovanni Augusto Oliveira Cardoso	Giovanni Augusto	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2617	95780	83	José Ricardo Mannarino	Zé Ricardo	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2622	95622	88	Marcus Vinicius Aredes Duarte	Vico	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2627	63058	91	Willian Roberto Farias	Willian Farias	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2632	86760	89	Lucas Macanhan Ferreira	Lucas Macanhan	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2637	99256	90	Alesandro dos Santos Pereira	Alesandro	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2642	95127	89	Nicolas Vichiatto da Silva	Nicolas	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2647	72603	87	William Amorim Martins de Menezes	William Menezes	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2652	86764	89	Sidcley Ferreira Pereira	Sidcley	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2657	69165	85	Pablo Nascimento Castro	Pablo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2662	77556	87	Bruno Brígido de Oliveira	Bruno Brígido	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2667	70696	85	Fábio Luiz Carille de Araújo	Fábio Carille	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2672	93414	88	Mauro Joel Carli	Joel Carli	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2677	68901	88	Rodrigo Pimpão Viana	Rodrigo Pimpão	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2682	86410	88	Victor Luis Chuab Zamblauskas	Victor Luis	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2687	87864	89	Felipe Gedoz da Conceição	Felipe Gedoz 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2692	74061	88	Roberto Junior Fernández Torres	Gatito Fernández	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2697	38109	88	Jefferson de Oliveira Galvão	Jefferson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2533	87398	83	Rodrigo de Souza Prado	Rodrigão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2539	71571	91	Fernando Miguel Kaufmann	Fernando Miguel	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2544	73317	91	Argélico Fucks	Argel Fucks	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2551	80374	91	Norberto Pereira Marinho Neto	Norberto 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2555	89871	91	Leonardo Pisculichi	Pisculichi	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2558	89976	91	Gerferson Cerqueira Teles	Geferson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2566	83048	88	Rafael Thyere Albuquerque Marques	Rafael Thyere	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2570	97863	91	Jhemerson Guimarães Gaigher	Jhemerson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2576	41218	90	Alessandro Beti Rosa	Magrão	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2581	50398	90	Paulo Henrique Carneiro Filho	Paulo Henrique	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2586	87008	88	Leonardo Cesar Jardim	Léo	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2590	71724	90	Agenor Detofol	Agenor	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2594	77967	90	Eugenio Esteban Mena Reveco	Mena	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2600	92617	88	Leonardo Costa Silva	Léo Tilica	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2604	79553	90	Joeliton Lima Santos	Mansur	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2608	94138	83	Felipe dos Reis Pereira Vizeu do Carmo	Felipe Vizeu	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2613	68918	85	 Bruno Paulo Machado Barbosa	Bruno Paulo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2619	84855	90	Raul Prata	Raul Prata	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2625	99034	90	Elias Lira Nogueira Junior 	Elias	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2628	98035	90	Caio Felipe dos Santos Silva	Caio	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2634	99254	90	Dayvid Alexsander da Silva	Dayvid	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2639	91204	89	Warleson Stellion Lisboa Oliveira	Warleson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2644	90587	89	Gustavo Cascardo de Assis	Cascardo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2649	73336	87	Rafael Martins Claro	Rafael Martins	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2655	73991	87	Walisson Moreira Farias Maia	Walisson Maia	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2659	70116	85	Fellipe Ramos Ignez Bastos	Fellipe Bastos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2665	82634	87	Matheus Galdezani	Matheus Galdezani	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2669	78605	85	Gabriel Girotto Franco	Gabriel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2676	86766	89	Matheus Rossetto	Matheus Rossetto	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2680	37652	89	Carlos Alberto Gomes de Jesus	Carlos Alberto	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2684	87228	85	Guilherme Antonio Arana Lopes	Guilherme Arana	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2688	91687	89	 João Pedro Heinen Silva	João Pedro	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2694	85629	87	Daniel Correa Freitas	Daniel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2699	88323	85	Ángel Rodrigo Romero Villamayor	Ángel Romero	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2706	89492	88	Saulo Ferreira Silva Nascimento	Saulo	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2710	91714	85	Marciel Silva da Silva	Marciel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2714	52674	88	Gilson Gomes do Nascimento	Gilson	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2719	91388	87	Rodrigo de Oliveira Ramos	Rodrigo Ramos	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2724	73992	83	Rodinei Marcelo de Almeida	Rodinei	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2730	95855	87	Kady Iuri Borges Malinowski	Kady	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2735	96349	87	Geovane Henrique Pereira de Souza	Geovane	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2740	89493	88	Igor Rabello da Costa	Igor Rabello	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2746	97315	85	Guilherme Mantuan	Mantuan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2751	37245	89	Augusto Sérgio Ferreira	Guto Ferreira	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2756	61985	88	Airton Ribeiro Santos	Airton	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2534	92501	88	Lucas Lovat	Lucas Lovat	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2541	69240	91	Jesús Alberto Dátolo	Dátolo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2546	99258	90	Matheus Bezerra Santos	Matheus Bezerra	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2549	84890	91	Elosman Euller Silva Cavalcanti	Euller 	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2553	73978	91	René Ferreira dos Santos	René	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2561	90892	91	Wallace Ribeiro Barato	Wallace	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2565	97532	91	Jean Paul Jesús Pineda Cortés	Jean Pineda	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2571	84310	88	Luan Viana Patrocinio	Luan Viana	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2574	86745	88	Lucas Gonçalves Reis Santos	Lucas Rex	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2578	37246	90	Ney Franco da Silveira Júnior	Ney Franco	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2583	60788	90	Marcos Antônio da Silva Gonçalves	Marquinhos	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2589	68950	90	Ronaldo Luiz Alves	Ronaldo Alves	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2595	90303	88	Lincoln Henrique Oliveira dos Santos	Lincoln	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2601	93151	83	Thiago Nascimento dos Santos	Thiago Santos	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2603	81241	90	Oswaldo José Henríquez Bocanegra	Oswaldo Henríquez	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2609	68770	85	Guilherme de Aguiar Camacho	Camacho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2614	95738	83	Miguel Ángel Trauco Saavedra	Trauco	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2618	68954	85	Marcos Gabriel do Nascimento	Marquinhos Gabriel	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2623	60969	91	Patric Cabral Lalau	Patric	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2631	37604	89	Paulo André Cren Benini	Paulo André	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2633	99255	90	Pedro Henryque Pereira dos Santos	Pedro Henryque	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2638	37662	89	Jonathan Cícero Moreira	Jonathan	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2643	99021	89	Riuler de Oliveira Faustino	Riuler	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2648	50439	85	Vilson Xavier de Meneses Junior	Vilson	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2653	87267	89	Marcos do Nascimento Teixeira	Marcão	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2658	97903	83	Matheus de Jesus Dantas	Dantas	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2666	98517	83	Jean Lucas de Souza Oliveira	Jean Lucas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2670	94269	89	Luiz Otávio Alves Marcolino	Luiz Otávio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2674	71479	89	Luis Oscar González	Lucho González	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2678	85069	89	Renan Paulino de Souza	Renan Paulino	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2685	69705	89	Maycon Vinícius Ferreira da Cruz	Nikão	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2690	88030	85	Warian dos Santos Souza	Warian Santos 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2696	79973	88	Helton Brant Aleixo Leite	Helton Leite	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2700	90031	85	John Stiven Mendoza Valencia	Mendoza	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2705	90406	89	Crysan da Cruz Queiroz Barcelos	Crysan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2711	38230	89	Edinaldo Batista Libânio	Grafite	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2716	39152	88	Jonas Jessué da Silva Júnior	Jonas	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2718	92191	85	Leonardo Rodrigues Lima	Léo Jabá	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2723	94154	85	Maycon de Andrade Barberan	Maycon	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2731	95315	87	Gustavo Marcelo Cardoso Soares	Índio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2736	96055	87	Yan Medeiros Sasse	Yan	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2741	78445	83	Renê Rodrigues Martins	Renê	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2745	78478	83	Willian Souza Arão da Silva	Willian Arão	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2750	84320	83	Wheidson Roberto dos Santos	Recife	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2755	37333	87	Marcelo Ribeiro Cabo	Marcelo Cabo	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2538	85418	83	Uilson Pedruzzi de Oliveira	Uilson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2543	72007	91	Uillian Correia Granemann	Uillian Correia	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2550	82613	91	Alan Henrique Costa	Alan Costa	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2556	92207	91	Caíque Luiz Santos da Purificação	Caíque	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2560	91359	91	Bruno Bispo dos Anjos	Bruno Bispo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2564	97538	87	Marcio Marcelo Leite Júnior	Marcio	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2569	86759	88	Luan Guilherme de Jesus Vieira	Luan	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2573	84530	88	Maximiliano Rodríguez Maeso	Maxi Rodríguez	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2580	68834	90	Francisco Rithely da Silva Sousa	Rithely	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2585	89227	88	Ânderson Balbino Assis	Balbino	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2588	90302	88	Pedro Rocha Neves	Pedro Rocha	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2596	73540	90	José Rogério de Oliveira	Rogério	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2599	92574	88	Kaio Silva Mendes	Kaio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2605	68807	87	Sosthenes José Santos Salles	Neto Berola	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2610	51413	85	Walter Leandro Capeloza Artune	Walter	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2616	95058	83	Onitlasi Júnior de Moraes Rodrigues	Moraes	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2621	94228	88	Iago Sampaio Silva	Iago	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2626	99253	90	Francisco Alves da Silva Melo	Chico	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2630	98034	90	Maílson Tenório dos Santos	Maílson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2635	70058	87	Tiago Real do Prado	Tiago Real	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2640	99257	90	João Erick Marques da Silva	João Erick	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2645	70132	87	Alan Santos da Silva	Alan Santos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2651	73635	87	Rildo de Andrade Felicissimo	Rildo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2656	38394	89	Thiago Heleno Henrique Ferreira	Thiago Heleno	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2661	98333	83	Gabriel Batista de Souza	Gabriel Batista	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2664	91866	89	José Ivaldo Almeida Silva	Zé Ivaldo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2668	69018	89	Deivid Willian da Silva	Deivid	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2673	82463	89	Otávio Henrique Passos Santos	Otávio 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2681	80281	89	Cleberson Martins de Souza	Cleberson	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2683	87225	85	Pedro Henrique Ribeiro Gonçalves	Pedro Henrique	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2689	87887	85	Fabián Cornelio Balbuena González	Balbuena	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2693	85586	87	Jonas Gomes de Sousa	Jonas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2698	62009	88	Fernando Camilo Farias	Camilo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2703	92085	89	Giovanny Bariani Marques	Giovanny 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2708	86783	87	Henrique Gelain Custódio	Henrique Gelain	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2713	71631	89	Weverton Pereira da Silva	Weverton	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2720	92225	87	Thiago Ferreira Lopes	Thiago Lopes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2726	55348	88	Luis Ricardo Silva Umbelino	Luis Ricardo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2729	94985	87	Domilson Cordeiro dos Santos	Dodô	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2734	86972	88	Emerson Raymundo Santos	Emerson Santos	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2739	97444	87	Julio Cezar Rusch	Julio Rusch	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2743	98484	88	Victor Hugo Soares dos Santos	Kanu	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2749	97502	87	Yilmar Alexis Filigrana Possu	Filigrana	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2753	38001	89	Anderson Pedro Nunes da Silva Campos	Anderson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2760	38928	88	Alexandro Silva de Souza	Dudu Cearense	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2540	84926	83	Yago Henrique Severino dos Santos	Yago	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2545	72871	91	Sherman Andrés Cárdenas Estupiñan	Cárdenas	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2548	85040	91	Gabriel Augusto Xavier	Gabriel Xavier	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2554	86861	91	Luís Vinícius da Silva Matos	Vinicius	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2559	89924	91	Bruno Edgar Silva Almeida	Bruno Ramires	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2563	82632	88	Lucas Heinzen Coelho	Lucas Coelho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2568	86973	88	Leonardo Gomes da Conceição Silva	Léo Gomes	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2575	86757	88	Everton Sousa Soares	Everton	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2579	87342	88	Walter Kannemann	Kannemann	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2584	68690	90	André Felipe Ribeiro de Souza	André	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2591	90532	88	Arthur Henrique Ramos de Oliveira Melo	Arthur	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2593	90331	88	Vitor Monteiro Luiz	Vitor	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2598	90335	88	Jeferson Carvalho dos Santos	Jeferson Negueba	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2606	61033	85	Rodrigo Eduardo Costa Marinho	Rodriguinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2611	94930	83	Lucas Tolentino Coelho de Lima	Lucas Paquetá	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2615	69047	85	Paulo Roberto da Silva	Paulo Roberto	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2620	99356	90	José Vinícius Almeida Soares	Vinícius	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2624	99033	90	Joao Victor Inacio Araujo	João Victor	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2629	99035	90	Pedro Vitor Ferreira Da Silva 	Pedro Vitor	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2636	69012	89	Aderbar Melo dos Santos Neto	Santos	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2641	69177	89	Leonardo Moreira Morais	Léo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2646	96591	89	Renan Augusto Lodi dos Santos	Renan Lodi	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2650	97902	83	Rafael Santos de Sousa	Rafael	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2654	97878	89	Jacy Maranhão Oliveira	Jacy	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2660	86143	89	Wanderson Santos Pereira	Wanderson	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2663	98516	83	Loran dos Santos da Silva	Loran 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2671	98515	83	Lucas da Silva de Jesus	Lucas Silva	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2675	80286	85	Matheus Caldeira Vidotto de Oliveira	Matheus Vidotto	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2679	81770	85	Clayton Silveira da Silva	Clayton	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2686	99430	88	Diego Terra Loureiro	Diego	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2691	84993	87	Fabrício Santos de Jesus	Fabrício Baiano	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2695	82469	89	Douglas Coutinho Gomes de Souza	Douglas Coutinho 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2701	90444	85	Moisés Roberto Barbosa	Moisés	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2704	92180	88	Jair Ventura	Jair Ventura	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2709	87743	87	Leonardo Araújo dos Santos	Léo Santos	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2715	36943	89	Paulo Autuori	Paulo Autuori	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2721	93846	87	Rafael Augusto Leite Fachin	Rafael Fachin	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2725	94765	85	Leonardo Peixoto Principe	Léo Principe	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2728	93797	88	Márcio Almeida de Oliveira	Marcinho	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2733	74083	83	Adryan Oliveira Tavares	Adryan 	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2738	96832	85	Rodrigo Figueiredo de Carvalho	Rodrigo Figueiredo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2744	96831	85	Carlos Moisés de Lima	Carlinhos	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2748	95638	88	Marcelo da Conceição Benevenuto Malaquias	Marcelo	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2754	85300	83	Orlando Enrique Berrío Meléndez	Berrío 	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2761	94966	89	Deijair dos Santos Nunes	Deijair 	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2702	72893	89	Eduardo Alves da Silva	Eduardo da Silva	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2707	91519	85	Colin Kazim-Richards	Kazim	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2712	88417	87	Iago Ângelo Dias	Iago	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2717	91808	85	Caíque França Godoy	Caíque França	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2722	97879	89	Matheus Aleksander dos Anjos	Matheus Anjos	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2727	96524	88	Victor Lindenberg Vieira	Victor Lindenberg	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2732	95820	85	Leonardo Rodrigues dos Santos	Léo Santos	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2737	51299	88	Emerson dos Santos Silva	Emerson Silva	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2742	97443	87	Romercio Pereira da Conceição	Romercio	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2747	81923	83	Alejandro César Donatti	Donatti	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2752	72386	89	Hernane Vidal Souza	Hernane	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2757	78086	83	César Bernardo Dutra	César	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2762	91194	83	Thiago Rodrigues da Silva	Thiago	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2767	73517	89	Douglas Moreira Pires	Douglas Pires	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2772	50294	85	Guilherme Milhomem Gusmão	Guilherme	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2777	82787	88	Tagueu Tadjo Diederrick Joel	Joel	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2782	89253	88	Maurício Andreazzi Pereira	Andreazzi	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2787	94968	89	Luis Antônio da Rocha Júnior	Juninho Capixaba	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2792	98874	89	Marcelo dos Santos Rosa	Marcelo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2797	50284	87	Wilson Rodrigues de Moura Júnior	Wilson	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2802	56102	87	João Paulo da Silva	João Paulo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2807	96089	88	Luiz Filipe da Rosa Machado	Machado	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2812	98762	88	José Augusto Bernardo	Zé Augusto	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2817	38530	91	Cleiton Ribeiro Xavier	Cleiton Xavier	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2822	92078	90	Wallace Lucas Aires da Silva	Wallace	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2827	94445	90	Edimar Ribeiro da Costa Júnior	Juninho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2832	95539	90	Fabrício Silva Costa	Fabrício	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2758	96411	89	Cassiano Silva dos Santos	Cassiano	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2763	72037	88	Renan de Oliveira Fonseca	Renan Fonseca	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2771	69095	88	Walter Damián Montillo	Montillo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2774	72362	88	Rodrigo Oliveira Lindoso	Rodrigo Lindoso	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2781	90933	89	Jean Paulo Fernandes Filho	Jean	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2785	94067	88	Matheus Fernandes Siqueira	Matheus Fernandes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2790	92128	89	Luis Henrique Farinhas Taffner	Luis Henrique	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2796	92182	87	José Carlos Ferreira Júnior	Juninho	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2800	62130	87	William Matheus da Silva	William Matheus	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2805	85149	90	Ronaldo Henrique Ferreira da Silva	Ronaldo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2811	89694	90	James Dean Araújo de Lima	James Dean	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2816	98763	88	Guilherme Truyts Pereira de Faria	Guilherme Truyts	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2820	91664	90	Adryelson Shawann Lima Silva	Adryelson	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2825	93746	90	Reinaldo Lenis Montes	Lenis	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2828	94144	90	Thallyson Gabriel Lobo Seabra	Thallyson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2759	38315	85	Jadson Rodrigues da Silva	Jadson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2765	42234	85	Cássio Ramos	Cássio	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2769	72168	88	João Paulo Mior	João Paulo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2776	88125	88	Yuri Antonio Costa da Silva	Yuri	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2779	89885	88	Leandro Alves de Carvalho	Leandrinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2783	90399	88	Jonathan da Silveira Fernandes Reis	Fernandes	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2789	97880	89	Murillo Magno de Carvalho	Murillo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2794	40179	87	Kleber Giacomace de Souza Freitas	Kleber	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2801	37792	87	Edimo Ferreira Campos	Edinho	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2806	62974	87	Werley Ananias da Silva	Werley	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2810	97138	88	Renan Silva Bragança	Dida	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2815	98832	88	Jean Pyerre Casagrande Silveira Correa	Jean Pyerre	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2821	68930	91	Welker Marçal de Almeida	Kieza	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2824	51905	91	Leandro Salino do Carmo	Leandro Salino	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2830	95180	90	Wildson Silva de Melo	Índio	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2764	38287	88	Roger Rodrigues da Silva	Roger	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2770	91264	83	Matheus Gonçalves Sávio	Matheus Sávio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2773	92981	83	Ronaldo da Silva Souza	Ronaldo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2778	79578	88	Luiz Ricardo Alves	Sassá	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2784	95849	89	Felipe Gustavo Domingos	Felipe	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2788	50645	89	Carlos Eduardo Santos Oliveira	Eduardo	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2793	69138	89	Pablo Felipe Teixeira	Pablo	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2799	38852	87	Anderson Luís de Abreu Oliveira	Anderson	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2804	68773	87	Henrique Almeida Caixeta Nascentes	Henrique Almeida	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2808	95978	88	Tyroane Joe Sandows	Ty Sandows	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2814	91003	90	Alison Vicente da Silva	Alison	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2818	91001	90	Evandro Lima de Oliveira Filho	Evandro	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2826	93282	90	Fábio Carvalho Matos	Fábio	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2829	94147	90	Lucas Ferreira Amaral	Lucas Ferreira	Goleiro	Goleiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2833	86935	90	Rodrigo Vasconcelos Oliveira	Rodrigo	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2766	68698	88	Bruno César Pereira da Silva	Bruno Silva	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2768	88070	83	Otacilio Brito Alves	Cafu	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2775	98706	85	Pedro Victor Delmino da Silva	Pedrinho	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2780	88651	88	Vinicius Rodolfo de Souza Oliveira	Vinícius Tanque	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2786	42500	85	Fagner Conserva Lemos	Fagner	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2791	95126	89	Yago César da Silva	Yago	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2795	99411	89	Alexsander Jhonatta de Oliveira Andrade	Alexsander	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2798	93153	87	Eriélton Carlos Pacheco	Pachequinho	Tecnico	Tecnico	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2803	63194	87	Carlos Emiliano Pereira	Carlinhos	Lateral	Lateral	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2809	86519	90	Everton Felipe de Oliveira Silva	Everton Felipe	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2813	96340	88	Vinicius Moreira de Lima	Lima	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2819	87742	90	Antônio Francisco Moura Neto	Neto Moura	Meia	Meia	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2823	51792	91	Antonio Eduardo Pereira dos Santos	Kanu	Zagueiro	Zagueiro	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2831	97877	90	Patrick Correia Sales	Patrick	Atacante	Atacante	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+\.
+
+
+--
+-- Name: Performance_id_seq; Type: SEQUENCE SET; Schema: public; Owner: leandromachado
+--
+
+SELECT pg_catalog.setval('"Performance_id_seq"', 2833, true);
+
+
+--
+-- Data for Name: Player; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "Player" (player_id, team_id, name, nickname, "position", initials_position, specific_position, goal, assist, suffered_foul, committed_foul, miss_pass, miss_pk, miss_shot, saved_shot, post_shot, steal, save, yellow_card, suffered_goal, clean_sheet, red_card, offside, own_goal, pk_saved) FROM stdin;
+61149	303	Lucca Borges Brito	Lucca	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70666	303	Marllon Gonçalves Jerônimo Borges	Marllon	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97538	294	Marcio Marcelo Leite Júnior	Marcio	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71719	303	Elton Junior Melo Ataíde	Elton	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69010	303	João Carlos Heidemann	João Carlos	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77809	303	William de Oliveira Pottker	William Pottker	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68808	303	Severino do Ramo Clementino da Silva	Nino Paraíba	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51319	303	Renato Adriano Jacó de Morais	Renato Cajá	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86432	303	Ramon Machado de Macedo	Ramon 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50427	303	Ricardo Martins de Araújo	Kadu	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92193	303	Ravanelli Ferreira dos Santos	Ravanelli	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78464	303	Fábio Farroco Braga	Fábio Braga	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80129	303	Jadson Alves dos Santos	Jadson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68987	303	João Vitor Lima Gomes	João Vitor	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83817	303	Clayson Henrique da Silva Vieira	Clayson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78897	303	Marinaldo dos Santos Oliveira	Naldo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42213	303	Fernando Paixão da Silva	Fernando Bob	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85591	303	Artur Sérgio Batista de Souza	Artur	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38425	303	Fábio Ferreira da Silva	Fábio Ferreira	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84917	303	Jeferson de Araújo de Carvalho	Jeferson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+53669	303	Lins Lima de Britto	Lins	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88136	303	Ivan Quaresma da Silva	Ivan	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91715	303	Matheus Henrique Cassini de Paula	Matheus Cassini	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86874	314	Edson Carlos Santos Lima Junior	Capa	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37623	267	Rafael Marques Pinto	Rafael Marques	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98888	314	Cláudio Vitor Morais de Lima Cruz	Cláudio Vitor	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37645	267	Marcelo Mendonça de Mattos Terra	Marcelo Mattos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+36540	262	Juan Silveira dos Santos	Juan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96965	314	Leonardo Thomas Lopes	Léo Lopes	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97769	303	Yuri Jonathan Vitor Coelho	Yuri	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95335	303	Matheus Sousa de Jesus	Matheus Jesus	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84761	314	Claudinei dos Santos Oliveira	Claudinei Oliveira	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37919	267	Luis Fabiano Clemente	Luis Fabiano	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68784	314	Sérgio Dutra Júnior	Júnior Dutra	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78584	314	Douglas Alan Schuck Friedrich	Douglas Friedrich	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97771	303	Wytallo Thiago Lima da Silva	Thiaguinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96870	303	Emerson Aparecido Leite de Souza Junior	Emerson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92762	303	Erick Lender Salles	Erick Salles	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72595	314	Mauricio Kozlinski	Mauricio Kozlinski	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97454	303	Edinan Brigola Stanisoski	Edinan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71549	267	Kelvin Mateus de Oliveira	Kelvin	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89150	267	Jean Carlos de Souza Irmer	Jean	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77544	373	Jorge de Moura Xavier	Jorginho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98945	266	Derlan de Oliveira Bento	Derlan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50407	266	Marco Antonio de Mattos Filho	Marquinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98282	314	Liniker Borges Santos Corado	Liniker	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97535	315	Hiago Correa Silveira Cena	Hiago	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80337	315	Arthur Caíke do Nascimento Cruz	Arthur 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86863	315	Luiz Otávio da Silva Santos	Luiz Otávio 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82567	315	Moisés Wolschick	Moisés	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89273	315	João Pedro Maturano dos Santos	João Pedro 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94583	266	Pedro Guilherme Abreu dos Santos	Pedro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97452	266	Marcos Vinícius Silva Rocha Calazans	Marcos Calazans	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98418	315	Igor Rempel Heinen	Igor	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37663	267	Julio Cesar Coelho de Moraes Júnior	Julio Cesar	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68884	373	Klever Rodrigo Gomes Rufino	Klever	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38913	267	Anderson Luiz de Carvalho	Nenê	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87098	265	Matheus Vieira Campos Peixoto	Matheus Peixoto	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60802	267	Bruno Vieira Gallo	Bruno Gallo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99388	373	Lucas Vinícius Santos Bernardino	Lucas Vinícius	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37333	373	Marcelo Ribeiro Cabo	Marcelo Cabo	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99283	314	Junior Henrique Eichelberger	Henrique	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38140	275	Fernando Buttenbender Prass	Fernando Prass	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98315	373	Evanderson Costa da Silva	Evanderson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90061	373	Bruno de Jesus Pacheco	Bruno Pacheco	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37718	275	Marcos Arouca da Silva	Arouca	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91714	264	Marciel Silva da Silva	Marciel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95820	264	Leonardo Rodrigues dos Santos	Léo Santos	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73513	266	Francinilson Santos Meireles	Maranhão	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95477	314	Eduardo Menezes	Menezes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87999	266	Gustavo Henrique Furtado Scarpa	Gustavo Scarpa	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96832	264	Rodrigo Figueiredo de Carvalho	Rodrigo Figueiredo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38156	315	Artur Guilherme Moraes Gusmão	Artur Moraes	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94249	315	Lourency do Nascimento Rodrigues	Lourency	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86974	314	Caio César da Silva Silveira	Caio César	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68725	315	Diego Renan de Lima Ferreira	Diego Renan	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95054	265	Waltenecir da Silva Ramos Júnior	Júnior Ramos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96804	314	Vitor da Silva Vieira	Vitor	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62069	265	Maikon Fernando Souza Leite	Maikon Leite	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91203	265	Éder Ferreira Graminho	Éder 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63158	275	Moisés Lima Magalhães	Moisés	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50362	266	Lucas Rios Marques	Lucas	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80583	277	Lucas Rafael Araujo Lima	Lucas Lima	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73446	267	Éderson Alves Ribeiro Silva	Éderson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69165	264	Pablo Nascimento Castro	Pablo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91917	373	Adniellyson da Silva Oliveira	Silva	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78495	373	Marcos de Paula Dutra	Marcos	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84313	265	Antônio Filipe Gonzaga de Aquino	Feijão	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82515	266	Reginaldo Manoel da Silva Júnior	Reginaldo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69008	315	Hélio Hermito Zampier Neto	Neto	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91973	315	Lucas Marques de Oliveira	Lucas Marques	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+39850	315	Vagner Carmo Mancini	Vagner Mancini	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90899	266	Lucas Fernandes	Lucas Fernandes	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90634	315	Lucas da Silva Izidoro	Lucas Mineiro	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89696	314	Romulo dos Santos de Souza	Romulo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98412	315	Giovanni Silva Tiepo	Tiepo	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94336	266	Mateus Norton Gomes Chaves	Mateus Norton	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37674	267	Wagner Ferreira dos Santos	Wagner	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63177	373	Luiz Severo Júnior	Júnior Viçosa	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98424	315	Alisson Fernando Salles	Alisson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99379	373	Guilherme Borges Neves	Borges	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38768	267	André Luiz Tavares	Andrezinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90715	373	Luiz Fernando Moraes dos Santos	Luiz Fernando 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91100	373	Alípio Duarte Brandão	Alípio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42145	275	Egídio de Araújo Pereira Júnior	Egídio	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80441	373	Rafael de Jesus Bonfim 	Bonfim 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90031	264	John Stiven Mendoza Valencia	Mendoza	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87228	264	Guilherme Antonio Arana Lopes	Guilherme Arana	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91808	264	Caíque França Godoy	Caíque França	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68827	266	Renato de Araújo Chaves Júnior	Renato Chaves	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97315	264	Guilherme Mantuan	Mantuan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38400	314	Vinícius Pacheco dos Santos	Vinícius Pacheco	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87874	266	Jefferson Gabriel Orejuela Izquierdo	Orejuela	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38001	265	Anderson Pedro Nunes da Silva Campos	Anderson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94885	314	Leonardo Felipe Santos da Silva	Léo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98402	266	Marcus Wendel Valle da Silva	Wendel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80140	315	Nadson da Silva Almeida	Nadson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81798	315	Rosicley Pereira da Silva	Rossi	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95483	315	Luiz Felipe Schwartz Dal Piva 	Luiz Felipe	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94971	265	Luís Fernando Santos da Conceição	Luís Fernando	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82647	265	Régis Augusto Salmazzo	Régis	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91815	266	Ygor Nogueira de Paula	Nogueira	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98286	265	Lucas Thiago Revuelta Billewicz	Bolívia	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91972	265	João Paulo Queiroz Moraes	João Paulo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+40006	266	Abel Carlos da Silva Braga	Abel Braga	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86120	275	Miguel Angel Borja Hernandez	Borja	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84896	314	Lucas Otávio Veiga Lopes	Lucas Otávio 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80286	264	Matheus Caldeira Vidotto de Oliveira	Matheus Vidotto	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98421	315	Kendy Tateishi Berbel	Japa	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71704	267	Andrés Ramiro Escobar Díaz	Manga Escobar	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78855	275	Thiago dos Santos	Thiago Santos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79042	265	Tiago Pagnussat	Tiago 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84691	314	Judson Silva Tavares	Judson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68895	266	Wellington Alves da Silva	Wellington Silva	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81905	266	José Henrique da Silva Dourado	Henrique Dourado	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97540	315	Vinícius Szeuczuk Ribeiro	Vinícius Guarapuava	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91743	315	Wesley Natã Wachholz	Wesley Natã	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+54797	315	Túlio Vinícius Fróes de Melo	Túlio de Melo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79892	315	Odair Souza 	Nenén	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92438	266	Matheus Phillipe Coutinho Gomes	Matheus Phillipe	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82791	314	Toshiya Tojo	Toshi	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42330	373	Felipe Garcia dos Prazeres	Felipe Garcia	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60787	373	Willians dos Santos Santana	Willians	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38225	267	Luiz Guilherme da Conceição Silva	Muriqui	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69249	267	Martín Andrés Silva	Martín Silva	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92144	373	Denilson de Araújo Santos	Denilson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72745	267	Damián Ariel Escudero	Escudero	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79334	373	Ricardo César Dantas da Silva	Ricardo Silva	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88539	373	João Vitor Pereira de Alcantara	João Vitor 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+36612	275	José Roberto da Silva Júnior	Zé Roberto	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98910	373	João Pedro Ribeiro dos Reis	João Pedro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37607	275	Michel Fernandes Bastos	Michel Bastos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88030	264	Warian dos Santos Souza	Warian Santos 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72565	314	Lázaro Luan Scapolan	Luan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42222	266	Osvaldo Lourenço Filho	Osvaldo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96411	265	Cassiano Silva dos Santos	Cassiano	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85626	266	Leonardo Pinheiro da Conceição	Léo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38150	314	Marcos Vicente dos Santos	Marquinhos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38279	315	Wellington Pereira do Nascimento	Wellington Paulista	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50645	265	Carlos Eduardo Santos Oliveira	Eduardo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84703	315	Nilton Soares Rodrigues	Niltinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98706	264	Pedro Victor Delmino da Silva	Pedrinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84927	315	Raphael Guimarães de Paula	Dodô	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98422	315	Mateus da Silva Fauth	Mateus Fauth	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89285	265	Matheus de Sales Cabral	Matheus Sales	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82455	265	José Rafael Vivian	Zé Rafael 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37673	275	Alecsandro Barbosa Felisbino	Alecsandro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38957	275	Rafael Marques Mariano	Rafael Marques	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74213	275	Alejandro Abraham Guerra Morales	Alejandro Guerra	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87225	264	Pedro Henrique Ribeiro Gonçalves	Pedro Henrique	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38431	266	Diego Cavalieri	Diego Cavalieri	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79193	373	Jucimar Lima Pacheco	Abuda	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62047	275	Jean Raphael Vanderlei Moreira	Jean	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73281	265	Renê dos Santos Júnior	Renê Júnior	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50856	266	Henrique Adriano Buss	Henrique	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92497	266	Douglas Augusto Soares Gomes	Douglas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78991	315	Moisés Ribeiro Santos	Moisés Ribeiro	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74271	265	Edigar Junio Teixeira Lima 	Edigar Junio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42232	315	William José de Souza	Amaral	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81898	315	Osman de Menezes Venâncio Junior	Osman	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84718	314	Denilson Pereira Junior	Denilson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94105	314	Devid de Santana Silva	Devid	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93791	266	Daniel Sampaio Simões	Danielzinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94288	315	Guilherme Natan de Lima	Lima	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88310	314	Lucas Itamir de Sá	Lucas de Sá	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98420	315	Bruno Bortolini Jackel	Bruno	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51415	373	Roger de Carvalho	Roger Carvalho	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38508	267	Eder Luis de Oliveira	Eder Luis	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73318	373	Daniel Fortunato Borges	Daniel Borges	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93956	373	Edson Fernandes Botelho Júnior	Edson Júnior	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70061	373	Marcus Winícius Silva Lima	Marcus Winícius	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37657	275	Eduardo Luís Abonizio de Souza	Edu Dracena	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38545	275	Felipe Melo de Carvalho	Felipe Melo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70696	264	Fábio Luiz Carille de Araújo	Fábio Carille	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87877	266	Júnior Nazareno Sornoza Moreira	Sornoza	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81770	264	Clayton Silveira da Silva	Clayton	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91519	264	Colin Kazim-Richards	Kazim	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37840	314	Gustavo Franchin Schiavolin	Gustavo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90768	315	Fabrício Bruno Soares de Faria	Fabrício Bruno	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94765	264	Leonardo Peixoto Principe	Léo Principe	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72386	265	Hernane Vidal Souza	Hernane	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63110	315	Alan Luciano Ruschel	Alan Ruschel	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98401	266	Patrick Luan dos Santos	Patrick Luan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95849	265	Felipe Gustavo Domingos	Felipe	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94003	315	Lucas Luiz Scalon	Scalon	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89156	315	Nathan Pelae Cardoso	Nathan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51042	315	Luiz Diallison de Souza Alves	Apodi	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94978	265	Kaynan Ribeiro Cruz	Kaynan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84585	265	Agustín Lionel Allione	Allione	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99425	266	Felipe Souza Moreno Sampaio	Felipe	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80189	265	Lucas Fonseca da Silva	Lucas Fonseca	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94968	265	Luis Antônio da Rocha Júnior	Juninho Capixaba	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80188	266	Marcos Junio Lima dos Santos	Marcos Junior	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60853	267	Julio Daniel dos Santos Rodríguez	Julio dos Santos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86713	373	Jonathan Francisco Lemos	Jonathan	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82876	373	Roberto Pimenta Vinagre Filho	Betinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90934	265	Sávio Roberto Julião Figueiredo	Sávio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38440	266	Lucas Pierre Santos Oliveira	Pierre	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80537	266	Michael Vinicius Silva de Morais	Michael	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88309	314	Renato da Silva Júnior	Renato	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83683	315	Andrei Girotto	Andrei Girotto	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87859	315	Emilio Enrique Zeballos Gutiérrez	Zeballos	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97537	315	Gabriel Dal Toé Busanello	Gabriel Busanello	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97527	266	Matheus Alessandro dos Santos Pereira	Matheus Alessandro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94286	315	Pedro Henrique Perotti	Perotti	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97536	315	Bryan Borges Mascarenhas	Bryan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94004	315	Andrei Alba	Andrei Alba	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70929	373	Guilherme Ferreira Pinto	Negueba	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80196	267	Glaybson Yago Souza Lisboa	Yago Pikachu	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98425	315	Luiz Pedro Giongo	Luiz Pedro	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73876	267	Jomar Herculano Lourenço	Jomar	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90716	373	Eduardo Felipe Lacerda de Almeida	Eduardo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42116	275	Willian Gomes de Siqueira	Willian	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80373	373	Wanderson Carvalho de Oliveira	Wanderson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72605	275	Vitor Hugo Franchescoli de Souza	Vitor Hugo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87887	264	Fabián Cornelio Balbuena González	Balbuena	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+49673	266	Júlio César Jacobi	Júlio César	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92191	264	Leonardo Rodrigues Lima	Léo Jabá	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95828	314	João Vitor Gervásio Wanderley	João Vitor	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85004	266	Marcos Felipe de Freitas Monteiro	Marcos Felipe 	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94154	264	Maycon de Andrade Barberan	Maycon	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96831	264	Carlos Moisés de Lima	Carlinhos	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37245	265	Augusto Sérgio Ferreira	Guto Ferreira	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94102	314	Matheus Gutz	Matheus	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90933	265	Jean Paulo Fernandes Filho	Jean	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83791	314	Diego Jardel Koester	Diego Jardel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78850	315	Reinaldo Manoel da Silva	Reinaldo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97528	266	Wesley Frazan Bernardo	Frazan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98423	315	Gabriel Antônio Rostirolla	Gabriel Alemão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86932	265	Gustavo Henrique da Silva Sousa	Gustavo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37627	267	Rodrigo Oliveira de Bittencourt	Diguinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70934	265	Jackson de Souza	Jackson	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98281	314	Fabian Maria Lago Vilela de Abreu	Fabian	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79702	275	Antônio Carlos Cunha Capocasali Júnior	Antônio Carlos 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92084	265	Mário Sérgio Pereira Junior	Mário	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93378	275	Augusto de Souza Silva	Augusto	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83615	275	Thiago Martins Bueno	Thiago Martins	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91654	373	Daniel da Silva dos Anjos	Daniel dos Anjos	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78605	264	Gabriel Girotto Franco	Gabriel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71090	373	João Filipe Rabelo da Costa e Silva	João Filipe	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78077	267	Madson Ferreira dos Santos	Madson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79887	275	Fabiano Leissmann	Fabiano	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84848	275	Erik Nascimento Lima	Erik	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71227	276	Maicon Pereira Roque	Maicon	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38062	276	Diego Alfredo Lugano Moreno	Lugano	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62129	276	Wellington Aparecido Martins	Wellington	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73619	276	Wellington Silva Sanches Aguiar	Wellington Nem	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50317	277	David Braz de Oliveira Filho	David Braz	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38421	283	Rafael da Silva Francisco	Rafinha	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37694	283	Henrique Pacheco de Lima	Henrique	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37644	267	Rodrigo Baldasso da Costa	Rodrigo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73721	283	Marcos Vinícius de Jesus Araújo	Marcos Vinícius	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70986	277	Leonardo Cittadini	Léo Cittadini	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85425	277	João Paulo Silva Martins	João Paulo	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97680	277	Yan Oliveira Lima	Yan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78548	277	Jean Mota Oliveira de Sousa	Jean Mota	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79035	277	Luiz Felipe do Nascimento dos Santos	Luiz Felipe	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94045	277	Diego Gomes dos Santos	Diego Gomes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87470	277	Thaciano Mickael da Silva	Thaciano	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38229	282	Fábio Santos Romeu	Fábio Santos	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70317	282	Eron Santos Lourenço	Eron	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80944	282	Johnath Marlone Azevedo da Silva	Marlone	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81150	283	Mayke Rocha de Oliveira	Mayke	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97349	282	Daniel dos Santos Penha	Daniel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95023	282	Luis Guilherme Castro de Melo	Luis Guilherme	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72290	275	Jailson Marcelino dos Santos	Jailson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95770	275	Victor Hugo Santana Carvalho	Vitinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80363	283	Alejandro Ariel Cabral	Ariel Cabral	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83048	284	Rafael Thyere Albuquerque Marques	Rafael Thyere	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89190	283	Judivan Flor da Silva	Judivan 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97653	283	Murilo Cerqueira Paim	Murilo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93869	283	Lucas Oliveira de França	Lucas França	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50328	284	Marcelo Oliveira Ferreira	Marcelo Oliveira	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85418	282	Uilson Pedruzzi de Oliveira	Uilson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80281	293	Cleberson Martins de Souza	Cleberson	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69705	293	Maycon Vinícius Ferreira da Cruz	Nikão	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95058	262	Onitlasi Júnior de Moraes Rodrigues	Moraes	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37662	293	Jonathan Cícero Moreira	Jonathan	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84320	262	Wheidson Roberto dos Santos	Recife	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92085	293	Giovanny Bariani Marques	Giovanny 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78371	284	Miller Alejandro Bolaños Reasco	Miller Bolaños	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86745	284	Lucas Gonçalves Reis Santos	Lucas Rex	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90406	293	Crysan da Cruz Queiroz Barcelos	Crysan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51318	277	Leandro Donizete Gonçalves da Silva	Leandro Donizete	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85211	267	Thalles Lima	Thalles	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95936	275	Daniel Cerântula Fuzato	Daniel Fuzato	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80692	275	Luan Garcia Teixeira	Luan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62024	276	Edimar Curitiba Fraga	Edimar	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79041	276	Antonio Thomaz Santos de Barros	Thomaz	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77959	277	Jonathan Copete Valencia	Copete	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37798	283	Rafael Augusto Sobis do Nascimento	Rafael Sobis	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69014	283	Manoel Messias Silva Carvalho	Manoel	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82943	277	Matheus Antunes Ribeiro	Matheus Ribeiro	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90285	277	Bruno Henrique Pinto	Bruno Henrique	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37851	282	Maicosuel Reginaldo de Matos	Maicosuel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+52950	282	Víctor Leandro Bagy	Victor	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68979	282	Giovanni Aparecido Adriano dos Santos	Giovanni	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81682	282	Juan Ramón Cazares Sevillano	Cazares	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70046	277	Victor Ferraz Macedo	Victor Ferraz	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97546	282	Marco Túlio Oliveira Lemos	Marco Túlio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96433	282	Ralph Machado Dias	Ralph	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95794	282	Nathanael Ananias da Silva	Nathan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93788	267	Evander da Silva Ferreira	Evander	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89898	275	Róger Krug Guedes	Róger Guedes	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84926	282	Yago Henrique Severino dos Santos	Yago	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82632	284	Lucas Heinzen Coelho	Lucas Coelho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74140	283	José Élber Pimentel da Silva	Élber	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38277	283	Thiago Neves Augusto	Thiago Neves	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81845	283	Alisson Euler de Freitas Castro	Alisson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84558	283	Lucas Daniel Romero	Lucas Romero	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85241	275	Yerry Fernando Mina González	Yerry Mina	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51705	284	Bruno Rodrigo Fenelon Palomo	Bruno Rodrigo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80853	284	Pedro Tonon Geromel	Pedro Geromel	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78012	284	Yuri Souza Almeida	Yuri Mamute	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69012	293	Aderbar Melo dos Santos Neto	Santos	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97902	262	Rafael Santos de Sousa	Rafael	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91194	262	Thiago Rodrigues da Silva	Thiago	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86143	293	Wanderson Santos Pereira	Wanderson	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38230	293	Edinaldo Batista Libânio	Grafite	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95126	293	Yago César da Silva	Yago	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37604	293	Paulo André Cren Benini	Paulo André	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71631	293	Weverton Pereira da Silva	Weverton	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78445	262	Renê Rodrigues Martins	Renê	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87398	282	Rodrigo de Souza Prado	Rodrigão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95780	262	José Ricardo Mannarino	Zé Ricardo	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86759	284	Luan Guilherme de Jesus Vieira	Luan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86760	293	Lucas Macanhan Ferreira	Lucas Macanhan	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92057	267	Gabriel Félix dos Santos	Gabriel Félix	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50307	282	Adilson Warken	Adilson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86486	267	Milton Mendes	Milton Mendes	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42499	276	Bruno Vieira do Nascimento	Bruno	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51175	276	Denis Cesar de Matos	Denis	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73649	276	Lucas David Pratto	Lucas Pratto	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50324	283	Hudson Rodrigues dos Santos	Hudson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+54424	283	Willians Domingos Fernandes	Willians	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38738	284	Douglas dos Santos	Douglas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98774	282	Flávio Augusto De Castro	Flávio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69040	277	Vladimir Orlando Cardoso de Araújo Filho	Vladimir	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94044	277	John Victor Maciel Furtado	John Victor	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37655	282	Rafael Martiniano de Miranda Moura	Rafael Moura	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63219	282	Luan Madson Gedeão De Paiva	Luan	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97543	282	Fernando Rodrigues Caixeta Barbosa	Fernando	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84382	282	Danilo Carvalho Barcelos	Danilo Barcelos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95022	282	Thalis Henrique Cantanhede	Thalis 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95651	282	Filipe Rodrigues de Souza Santos	Filipinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87211	275	Eduardo Augusto Baptista Miguel	Eduardo Baptista	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71123	276	Thiago Henrique Mendes Ribeiro	Thiago Mendes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78632	283	Bryan Silva Garcia	Bryan	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68928	283	Rafael Pires Monteiro	Rafael	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87863	283	Giorgian Daniel de Arrascaeta Benedetti	Arrascaeta	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79701	283	Lucas Silva Borges	Lucas Silva	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84310	284	Luan Viana Patrocinio	Luan Viana	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87833	283	Luis Alberto Caicedo Medina	Luis Caicedo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94962	283	Lucas Emanoel Leite Romão	Lucão	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91094	283	Ramón Darío Ábila	Ábila	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38196	284	Maicon Thiago Pereira de Souza	Maicon	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86764	293	Sidcley Ferreira Pereira	Sidcley	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87267	293	Marcos do Nascimento Teixeira	Marcão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69018	293	Deivid Willian da Silva	Deivid	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85300	262	Orlando Enrique Berrío Meléndez	Berrío 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97879	293	Matheus Aleksander dos Anjos	Matheus Anjos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92128	293	Luis Henrique Farinhas Taffner	Luis Henrique	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81923	262	Alejandro César Donatti	Donatti	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74075	284	Wallace Oliveira dos Santos	Wallace Oliveira	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38100	292	Severino dos Ramos Durval da Silva	Durval	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37701	284	Leonardo da Silva Moura	Léo Moura	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84530	284	Maximiliano Rodríguez Maeso	Maxi Rodríguez	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91204	293	Warleson Stellion Lisboa Oliveira	Warleson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69177	293	Leonardo Moreira Morais	Léo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98874	293	Marcelo dos Santos Rosa	Marcelo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93787	267	Andrey Ramos do Nascimento	Andrey	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62121	277	Vanderlei Farias da Silva	Vanderlei	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93785	267	Alan Cardoso de Andrade	Alan Cardoso	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82411	276	Christian Alberto Cueva Bravo	Cueva	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63422	276	Jucilei da Silva	Jucilei	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77777	276	João Felipe Schimdt Urbano	João Schmidt 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63128	276	Douglas Silva Bacelar	Douglas	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+61188	276	Gilberto Oliveira Souza Júnior	Gilberto	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+49674	283	Fabricio dos Santos Silva	Fabrício	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68929	277	Thiago Ribeiro Cardoso	Thiago Ribeiro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87552	277	Vitor Frezarin Bueno	Vitor Bueno	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90569	277	Yuri Oliveira Lima	Yuri	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95837	277	Fabián Ariel Noguera	Fabián Noguera	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84851	282	Lucas Cândido Silva	Lucas Cândido	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+54395	282	Elias Mendes Trindade	Elias	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50369	282	Carlos Eduardo Marques	Carlos Eduardo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63013	282	Marcos Luis Rocha Aquino	Marcos Rocha	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98766	282	Emanuel Rocha Dos Santos	Emanuel	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97545	282	Pedro Santos Filho	Pedro	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91156	282	Jesiel Cardoso Miranda	Jesiel	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96532	282	Adson Felippe Marques da Silva	Adson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93789	267	Caio Monteiro Costa	Caio Monteiro	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93146	275	Yan Matheus Santos Souza	Yan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37656	283	Fábio Deivson Lopes Maciel	Fábio	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86757	284	Everton Sousa Soares	Everton	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87393	282	Gabriel Costa França	Gabriel	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38162	282	Frederico Chaves Guedes	Fred	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+41218	292	Alessandro Beti Rosa	Magrão	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86797	283	Raniel Santana de Vasconcelos	Raniel	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90535	283	Alex Sandro dos Santos Apolinario	Alex	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38523	284	Edílson Mendes Guimarães	Edílson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98333	262	Gabriel Batista de Souza	Gabriel Batista	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78086	262	César Bernardo Dutra	César	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82469	293	Douglas Coutinho Gomes de Souza	Douglas Coutinho 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88070	262	Otacilio Brito Alves	Cafu	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97880	293	Murillo Magno de Carvalho	Murillo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95738	262	Miguel Ángel Trauco Saavedra	Trauco	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95127	293	Nicolas Vichiatto da Silva	Nicolas	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72893	293	Eduardo Alves da Silva	Eduardo da Silva	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78478	262	Willian Souza Arão da Silva	Willian Arão	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+40179	294	Kleber Giacomace de Souza Freitas	Kleber	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68930	287	Welker Marçal de Almeida	Kieza	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79966	284	Rondinelly de Andrade Silva	Rondinelly	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89693	282	Leonan José Valandro Gomes	Leonan	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93151	262	Thiago Nascimento dos Santos	Thiago Santos	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99021	293	Riuler de Oliveira Faustino	Riuler	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50402	277	Kayke Moreno de Andrade Rodrigues	Kayke	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86776	267	Jordi Almeida	Jordi	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74083	262	Adryan Oliveira Tavares	Adryan 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93882	282	Cleiton Schwengber	Cleiton	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70222	276	Sidney Aparecido Ramos da Silva	Sidão	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68932	276	Renan Ribeiro	Renan Ribeiro	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60819	283	Anderson Vital da Silva	Dedé	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78414	283	Rafael Ferreira Donato	Rafael Donato	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89637	277	Thiago Maia Alencar	Thiago Maia	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78839	277	Gabriel Bordinhão Gasparotto	Gabriel Gasparotto	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88225	277	Daniel Guedes da Silva	Daniel Guedes 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93368	277	Lucas Veríssimo da Silva	Lucas Veríssimo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96328	277	Matheus Oliveira Santos	Matheus Oliveira	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68925	282	Leonardo Fabiano da Silva e Silva	Leonardo Silva	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96966	277	Arthur Gomes Lourenço	Arthur Gomes	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42140	282	Felipe Augusto Santana	Felipe Santana	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81223	282	Frickson Rafael  Erazo Vivero	Erazo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83004	282	Rómulo Otero Vásquez	Otero	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60784	282	Rafael de Souza Pereira	Rafael Carioca	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+61211	282	Carlos Cesar Neves	Carlos Cesar	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94854	282	César de São José Morais	César	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98767	282	Anderson Cordeiro Costa	Anderson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99353	282	Lucas de Oliveira Antunes	Lucas Índio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95118	282	Thiago Henrique Fernandes Valle	Thiago Henrique	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37688	276	Cícero Santos	Cícero	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95823	267	Yuri Duarte Filho	Yuri Duarte	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86485	275	Marcos da Silva França	Keno	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90587	293	Gustavo Cascardo de Assis	Cascardo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62104	283	Róbson Michael Signorini	Robinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+41929	284	Renato Portaluppi	Renato Gaúcho	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80318	283	Ezequiel Jacinto de Biasi	Ezequiel 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37770	284	Marcelo Grohe	Marcelo Grohe	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96591	293	Renan Augusto Lodi dos Santos	Renan Lodi	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97878	293	Jacy Maranhão Oliveira	Jacy	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97903	262	Matheus de Jesus Dantas	Dantas	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92981	262	Ronaldo da Silva Souza	Ronaldo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38394	293	Thiago Heleno Henrique Ferreira	Thiago Heleno	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91866	293	José Ivaldo Almeida Silva	Zé Ivaldo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91687	293	 João Pedro Heinen Silva	João Pedro	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71479	293	Luis Oscar González	Lucho González	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92182	294	José Carlos Ferreira Júnior	Juninho	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+36943	293	Paulo Autuori	Paulo Autuori	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95315	294	Gustavo Marcelo Cardoso Soares	Índio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78715	284	Ramiro Moschen Benetti	Ramiro	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87158	282	Cicero Clebson Alves Santana	Cícero	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50408	276	Breno Vinicius Rodrigues Borges	Breno	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37608	264	Cristian Mark Junio Nascimento Oliveira Baroni	Cristian	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98516	262	Loran dos Santos da Silva	Loran 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86783	294	Henrique Gelain Custódio	Henrique Gelain	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73991	294	Walisson Moreira Farias Maia	Walisson Maia	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91388	294	Rodrigo de Oliveira Ramos	Rodrigo Ramos	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73992	262	Rodinei Marcelo de Almeida	Rodinei	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+52674	263	Gilson Gomes do Nascimento	Gilson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50348	262	Darío Leonardo Conca	Conca	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92614	287	Rafaelson Bezerra Fernandes	Rafaelson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93108	267	Mateus da Silva Vital Assumpção	Mateus Pet	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62128	373	Walter Henrique da Silva	Walter	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91264	262	Matheus Gonçalves Sávio	Matheus Sávio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99411	293	Alexsander Jhonatta de Oliveira Andrade	Alexsander	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98484	263	Victor Hugo Soares dos Santos	Kanu	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87864	293	Felipe Gedoz da Conceição	Felipe Gedoz 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88651	263	Vinicius Rodolfo de Souza Oliveira	Vinícius Tanque	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85586	294	Jonas Gomes de Sousa	Jonas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94228	284	Iago Sampaio Silva	Iago	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79973	263	Helton Brant Aleixo Leite	Helton Leite	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82463	293	Otávio Henrique Passos Santos	Otávio 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88417	294	Iago Ângelo Dias	Iago	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97138	284	Renan Silva Bragança	Dida	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93746	292	Reinaldo Lenis Montes	Lenis	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38315	264	Jadson Rodrigues da Silva	Jadson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42500	264	Fagner Conserva Lemos	Fagner	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90303	284	Lincoln Henrique Oliveira dos Santos	Lincoln	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94138	262	Felipe dos Reis Pereira Vizeu do Carmo	Felipe Vizeu	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72490	287	Frederico Burgel Xavier 	Fred	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99253	292	Francisco Alves da Silva Melo	Chico	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99254	292	Dayvid Alexsander da Silva	Dayvid	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97877	292	Patrick Correia Sales	Patrick	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50284	294	Wilson Rodrigues de Moura Júnior	Wilson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94207	263	Guilherme Augusto Vieira dos Santos	Guilherme	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50301	262	Everton Cardoso da Silva	Everton	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95876	267	Douglas Luiz Soares de Paulo	Douglas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71920	284	Michel Ferreira dos Santos	Michel 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85040	287	Gabriel Augusto Xavier	Gabriel Xavier	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86859	287	José Welison da Silva	José Welison	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90309	287	David Correa da Fonseca	David	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97532	287	Jean Paul Jesús Pineda Cortés	Jean Pineda	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87028	284	Luiz Humberto da Silva Silva	Beto da Silva	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87342	284	Walter Kannemann	Kannemann	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70132	294	Alan Santos da Silva	Alan Santos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86766	293	Matheus Rossetto	Matheus Rossetto	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+56102	294	João Paulo da Silva	João Paulo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96089	284	Luiz Filipe da Rosa Machado	Machado	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82634	294	Matheus Galdezani	Matheus Galdezani	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98517	262	Jean Lucas de Souza Oliveira	Jean Lucas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93414	263	Mauro Joel Carli	Joel Carli	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38287	263	Roger Rodrigues da Silva	Roger	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89885	263	Leandro Alves de Carvalho	Leandrinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+55348	263	Luis Ricardo Silva Umbelino	Luis Ricardo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73421	262	Rafael Vaz dos Santos	Rafael Vaz	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60969	287	Patric Cabral Lalau	Patric	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60859	284	Jael Ferreira Vieira	Jael	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68954	264	Marcos Gabriel do Nascimento	Marquinhos Gabriel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98035	292	Caio Felipe dos Santos Silva	Caio	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38109	263	Jefferson de Oliveira Galvão	Jefferson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99430	263	Diego Terra Loureiro	Diego	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74061	263	Roberto Junior Fernández Torres	Gatito Fernández	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93797	263	Márcio Almeida de Oliveira	Marcinho	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85629	294	Daniel Correa Freitas	Daniel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96055	294	Yan Medeiros Sasse	Yan	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97444	294	Julio Cezar Rusch	Julio Rusch	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98762	284	José Augusto Bernardo	Zé Augusto	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92617	284	Leonardo Costa Silva	Léo Tilica	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92501	284	Lucas Lovat	Lucas Lovat	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73317	287	Argélico Fucks	Argel Fucks	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51792	287	Antonio Eduardo Pereira dos Santos	Kanu	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78578	287	Paulo Luiz Beraldo Santos	Paulinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95180	292	Wildson Silva de Melo	Índio	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94930	262	Lucas Tolentino Coelho de Lima	Lucas Paquetá	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90399	263	Jonathan da Silveira Fernandes Reis	Fernandes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94067	263	Matheus Fernandes Siqueira	Matheus Fernandes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71937	265	Paulo Roberto Valoura Júnior	Juninho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95798	263	Gustavo Costa da Silva Machado	Gustavo Bochecha	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95840	267	Lucas Barboza Rodrigues	Lucas Barboza 	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71818	284	Bruno Medeiros Grassi	Bruno Grassi	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73978	287	René Ferreira dos Santos	René	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89924	287	Bruno Edgar Silva Almeida	Bruno Ramires	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98221	287	Ilson Cedric Borges de Accacio Lima	Cedric	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86973	284	Leonardo Gomes da Conceição Silva	Léo Gomes	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94214	262	Leonardo Campos Duarte da Silva	Léo Duarte	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99256	292	Alesandro dos Santos Pereira	Alesandro	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72603	294	William Amorim Martins de Menezes	William Menezes	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73336	294	Rafael Martins Claro	Rafael Martins	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70173	262	Ederson Honorato Campos	Ederson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98763	284	Guilherme Truyts Pereira de Faria	Guilherme Truyts	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99257	292	João Erick Marques da Silva	João Erick	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92078	292	Wallace Lucas Aires da Silva	Wallace	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94269	293	Luiz Otávio Alves Marcolino	Luiz Otávio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92225	294	Thiago Ferreira Lopes	Thiago Lopes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96524	263	Victor Lindenberg Vieira	Victor Lindenberg	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71709	262	Gustavo Leonardo Cuellar Gallego	Cuéllar	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72168	263	João Paulo Mior	João Paulo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95875	267	Hugo da Conceição Borges Alves	Hugo Borges	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79578	263	Luiz Ricardo Alves	Sassá	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69047	264	Paulo Roberto da Silva	Paulo Roberto	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99033	292	Joao Victor Inacio Araujo	João Victor	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85069	293	Renan Paulino de Souza	Renan Paulino	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87743	294	Leonardo Araújo dos Santos	Léo Santos	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96349	294	Geovane Henrique Pereira de Souza	Geovane	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63194	294	Carlos Emiliano Pereira	Carlinhos	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69095	263	Walter Damián Montillo	Montillo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68773	294	Henrique Almeida Caixeta Nascentes	Henrique Almeida	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51299	263	Emerson dos Santos Silva	Emerson Silva	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94445	292	Edimar Ribeiro da Costa Júnior	Juninho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71571	287	Fernando Miguel Kaufmann	Fernando Miguel	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90331	284	Vitor Monteiro Luiz	Vitor	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72871	287	Sherman Andrés Cárdenas Estupiñan	Cárdenas	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68770	264	Guilherme de Aguiar Camacho	Camacho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99035	292	Pedro Vitor Ferreira Da Silva 	Pedro Vitor	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95539	292	Fabrício Silva Costa	Fabrício	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93153	294	Eriélton Carlos Pacheco	Pachequinho	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62130	294	William Matheus da Silva	William Matheus	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37792	294	Edimo Ferreira Campos	Edinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37984	303	Mário Lúcio Duarte Costa	Aranha	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72079	284	Bruno Cortês Barbosa	Bruno Cortez	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69282	284	Lucas Ramón Barrios Arioli	Lucas Barrios	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99258	292	Matheus Bezerra Santos	Matheus Bezerra	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86861	287	Luís Vinícius da Silva Matos	Vinicius	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91359	287	Bruno Bispo dos Anjos	Bruno Bispo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97863	287	Jhemerson Guimarães Gaigher	Jhemerson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90302	284	Pedro Rocha Neves	Pedro Rocha	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90532	284	Arthur Henrique Ramos de Oliveira Melo	Arthur	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70058	294	Tiago Real do Prado	Tiago Real	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77556	294	Bruno Brígido de Oliveira	Bruno Brígido	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98515	262	Lucas da Silva de Jesus	Lucas Silva	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50294	264	Guilherme Milhomem Gusmão	Guilherme	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71572	284	Gabriel Rybar Blos	Gabriel	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71066	262	Federico Mancuello	Mancuello	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95978	284	Tyroane Joe Sandows	Ty Sandows	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68901	263	Rodrigo Pimpão Viana	Rodrigo Pimpão	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95638	263	Marcelo da Conceição Benevenuto Malaquias	Marcelo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68893	287	André Luiz Barretto Silva Lima	André Lima	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38138	264	João Alves de Assis Silva	Jô	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62086	262	Marcos Rogério Ricci Lopes	Pará	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95543	263	Renan Gorne Silva	Renan Gorne	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37652	293	Carlos Alberto Gomes de Jesus	Carlos Alberto	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51413	264	Walter Leandro Capeloza Artune	Walter	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99356	292	José Vinícius Almeida Soares	Vinícius	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92180	263	Jair Ventura	Jair Ventura	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86410	263	Victor Luis Chuab Zamblauskas	Victor Luis	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89492	263	Saulo Ferreira Silva Nascimento	Saulo	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86972	263	Emerson Raymundo Santos	Emerson Santos	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97443	294	Romercio Pereira da Conceição	Romercio	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68698	263	Bruno César Pereira da Silva	Bruno Silva	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96340	284	Vinicius Moreira de Lima	Lima	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69240	287	Jesús Alberto Dátolo	Dátolo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82613	287	Alan Henrique Costa	Alan Costa	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+61033	264	Rodrigo Eduardo Costa Marinho	Rodriguinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93282	292	Fábio Carvalho Matos	Fábio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94147	292	Lucas Ferreira Amaral	Lucas Ferreira	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82787	263	Tagueu Tadjo Diederrick Joel	Joel	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62974	294	Werley Ananias da Silva	Werley	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98832	284	Jean Pyerre Casagrande Silveira Correa	Jean Pyerre	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97352	263	Luiz Henrique Pachu Lira	Pachu	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71892	265	Wellington do Nascimento Silva	Wellington Silva	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82628	265	Guilherme de Jesus da Silva	Tinga	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80370	265	Edson Felipe da Cruz	Edson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70009	262	Romulo Borges Monteiro	Romulo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68758	284	Luiz Fernando Pereira da Silva	Fernandinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89871	287	Leonardo Pisculichi	Pisculichi	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89976	287	Gerferson Cerqueira Teles	Geferson	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91101	287	Ronaldo de Oliveira Strada	Ronaldo	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90335	284	Jeferson Carvalho dos Santos	Jeferson Negueba	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63058	287	Willian Roberto Farias	Willian Farias	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99255	292	Pedro Henryque Pereira dos Santos	Pedro Henryque	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73635	294	Rildo de Andrade Felicissimo	Rildo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50439	264	Vilson Xavier de Meneses Junior	Vilson	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38530	287	Cleiton Ribeiro Xavier	Cleiton Xavier	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+52253	262	Réver Humberto Alves Araújo	Réver	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68938	264	Giovanni Augusto Oliveira Cardoso	Giovanni Augusto	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73515	262	Gabriel Santana Pinto	Gabriel	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38311	262	Márcio Rodrigues Araújo	Márcio Araújo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91260	276	Lucas Estella Perri	Lucas Perri	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72362	263	Rodrigo Oliveira Lindoso	Rodrigo Lindoso	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95622	284	Marcus Vinicius Aredes Duarte	Vico	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+82627	276	Luiz de Araujo Guimaraes Neto	Luiz Araújo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69160	284	Gastón Nicolás Fernández	Gastón Fernández	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72491	284	Matheus Simonete Bressanelli	Bressan	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95660	276	Felipe Araruna Hoffman	Araruna	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98952	276	Leonardo Natel Vieira	Léo Natel	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94931	276	Lucas Fernandes da Silva	Lucas Fernandes	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97645	276	Thiago Couto Wenceslau	Thiago Couto	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97341	276	Rogério Ceni	Rogério Ceni	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95332	276	Marcio Antonio de Sousa Júnior	Marcinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72007	287	Uillian Correia Granemann	Uillian Correia	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97520	276	Shaylon Kallyson Cardoso	Shaylon	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84890	287	Elosman Euller Silva Cavalcanti	Euller 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80374	287	Norberto Pereira Marinho Neto	Norberto 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89253	263	Maurício Andreazzi Pereira	Andreazzi	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92574	284	Kaio Silva Mendes	Kaio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78968	292	Leandro Marcos Pereira	Leandro Pereira	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+81241	292	Oswaldo José Henríquez Bocanegra	Oswaldo Henríquez	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92207	287	Caíque Luiz Santos da Purificação	Caíque	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38852	294	Anderson Luís de Abreu Oliveira	Anderson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+39152	263	Jonas Jessué da Silva Júnior	Jonas	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89493	263	Igor Rabello da Costa	Igor Rabello	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+61985	263	Airton Ribeiro Santos	Airton	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77967	292	Eugenio Esteban Mena Reveco	Mena	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90290	284	Jaílson Marques Siqueira	Jailson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73540	292	José Rogério de Oliveira	Rogério	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73384	292	Samuel Xavier Brito	Samuel Xavier	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89227	284	Ânderson Balbino Assis	Balbino	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79553	292	Joeliton Lima Santos	Mansur	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62009	263	Fernando Camilo Farias	Camilo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38928	263	Alexandro Silva de Souza	Dudu Cearense	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72037	263	Renan de Oliveira Fonseca	Renan Fonseca	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42234	264	Cássio Ramos	Cássio	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69138	293	Pablo Felipe Teixeira	Pablo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88125	263	Yuri Antonio Costa da Silva	Yuri	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87008	284	Leonardo Cesar Jardim	Léo	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68807	294	Sosthenes José Santos Salles	Neto Berola	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+75295	262	José Paolo Guerrero Gonzales	Paolo Guerrero	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87486	265	Matheus Reis de Lima	Matheus Reis	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77500	303	Yago Fernando da Silva	Yago	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94975	265	Marco Antônio Rosa Furtado Júnior	Marco Antônio	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+92081	266	Richarlison Andrade	Richarlison 	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90366	266	Luiz Fernando Ferreira Maximiliano	Luiz Fernando 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37246	292	Ney Franco da Silveira Júnior	Ney Franco	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99034	292	Elias Lira Nogueira Junior 	Elias	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98034	292	Maílson Tenório dos Santos	Maílson	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85149	292	Ronaldo Henrique Ferreira da Silva	Ronaldo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89694	292	James Dean Araújo de Lima	James Dean	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51905	287	Leandro Salino do Carmo	Leandro Salino	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94144	292	Thallyson Gabriel Lobo Seabra	Thallyson	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68911	292	Diego Souza de Andrade	Diego Souza	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83263	265	Yuri Lima Lara	Yuri	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71927	265	Diego da Silva Rosa	Diego Rosa	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97708	314	Thiago Silva e Silva	Thiago 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78407	315	Douglas Ricardo Grolli	Douglas Grolli	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90843	315	Elias Martello Curzel	Elias	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91001	292	Evandro Lima de Oliveira Filho	Evandro	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86935	292	Rodrigo Vasconcelos Oliveira	Rodrigo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84855	292	Raul Prata	Raul Prata	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91664	292	Adryelson Shawann Lima Silva	Adryelson	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95549	314	Marcelo Leite Pereira	Marcelinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38910	277	Ricardo de Oliveira	Ricardo Oliveira	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71724	292	Agenor Detofol	Agenor	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38067	264	Danilo Gabriel de Andrade	Danilo	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93369	265	Rodrigo Nascimento França 	Rodrigo Becão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97768	303	Reynaldo César Moraes	Reynaldo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+96464	314	Mauricio Tomazi Pinheiro	Mauricio	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98419	315	Ronei Gebing	Ronei	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86519	292	Everton Felipe de Oliveira Silva	Everton Felipe	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38909	262	Diego Ribas da Cunha	Diego	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79066	262	Alex Roberto Santana Rafael 	Alex Muralha	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68953	262	Leandro Damião da Silva dos Santos	Leandro Damião	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68950	292	Ronaldo Luiz Alves	Ronaldo Alves	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84993	294	Fabrício Santos de Jesus	Fabrício Baiano	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93846	294	Rafael Augusto Leite Fachin	Rafael Fachin	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94985	294	Domilson Cordeiro dos Santos	Dodô	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+95855	294	Kady Iuri Borges Malinowski	Kady	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97502	294	Yilmar Alexis Filigrana Possu	Filigrana	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+91003	292	Alison Vicente da Silva	Alison	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38021	303	Wendel Geraldo Maurício e Silva	Wendel	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37646	314	Ebert Willian Amâncio	Betão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74060	315	Luiz Antonio de Souza Soares	Luiz Antonio 	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38908	277	Renato Dirnei Florêncio	Renato	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72879	277	Vladimir Javier Hernández Rivero	Vladimir Hernández	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89342	277	Wanderson de Jesus Martins	Caju	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68918	264	 Bruno Paulo Machado Barbosa	Bruno Paulo	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86411	303	Breno Gonçalves Lopes	Breno Lopes	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+53731	314	Ferdinando Pereira Leda	Ferdinando	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84893	267	Henrique Silva Milagres	Henrique	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87192	277	José Carlos Cracco Neto	Zeca	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38246	282	Robson de Souza	Robinho	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+79437	282	Roger Machado Marques	Roger Machado 	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98765	282	José Marcos Costa Martins	Marquinho	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70116	264	Fellipe Ramos Ignez Bastos	Fellipe Bastos	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90444	264	Moisés Roberto Barbosa	Moisés	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37306	303	Gilson Kleina	Gilson Kleina	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68693	265	Pablo Estifer Armero	Armero	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+39572	266	José Renato da Silva Júnior	Renato	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68986	314	Gustavo dos Santos	Gustavo Santos	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62997	314	João Paulo Purcino de Almeida	João Paulo	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68887	266	Welington Pereira Rodrigues	Gum	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74081	267	Guilherme Costa Machado Silveira	Guilherme Costa	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+40990	277	Dorival Silvestre Júnior	Dorival Júnior	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90566	277	Rafael Vinicius Carvalho Longuine	Rafael Longuine	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69022	262	Marcelo Cirino da Silva	Marcelo Cirino	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+77529	314	Leandro da Silva	Leandro Silva	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99032	314	João Paulo Ferreira Lourenço	Lourenço	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+80313	267	Gilberto Moraes Júnior	Gilberto 	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88323	264	Ángel Rodrigo Romero Villamayor	Ángel Romero	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+55594	303	Cássio Luís Rissardo	Xuxa	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83522	314	Fagner Ironi Daponte	Fagner Alemão	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+93986	314	Luis Ángel Salazar Cuesta	Salazar	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97228	314	Carlos Vitor da Silva Nascimento	Santarém	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89695	314	Iury Lirio Freitas de Castilho	Iury	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+98056	373	Luiz Felipe Machado de Souza	Luiz Felipe	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87350	276	Julio Buffarini	Buffarini	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90651	277	Rodrigo Gomes dos Santos	Rodrigão	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86686	275	Danilo das Neves Pinheiro	Tchê Tchê	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94509	275	Raphael Cavalcante Veiga	Raphael Veiga	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+83772	276	Neilton Meira Mestzk	Neilton	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89676	283	Nickson Gabriel Reis Silva	Nickson	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50398	292	Paulo Henrique Carneiro Filho	Paulo Henrique	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73517	265	Douglas Moreira Pires	Douglas Pires	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97544	282	João Vitor Moura Cardoso	João Moura	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85083	275	Vinicius Silvestre da Costa	Vinicius Silvestre	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89839	276	Andres Eliseo Chavez	Andres Chavez	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+97856	283	Lucas de Souza Ventura	Nonoca	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+90892	287	Wallace Ribeiro Barato	Wallace	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+99424	276	Edson Militão	Edson Militão	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68920	275	Eduardo Pereira Rodrigues	Dudu	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+85931	275	Hyoran Kaue Dalmoro	Hyoran	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73800	276	Rodrigo Caio Roquette Russo	Rodrigo Caio	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86227	276	Andrew Erik Feitosa	Morato	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+84554	276	Lucas Cavalcante Silva Afonso	Lucão	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68834	292	Francisco Rithely da Silva Sousa	Rithely	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68690	292	André Felipe Ribeiro de Souza	André	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+94966	265	Deijair dos Santos Nunes	Deijair 	Goleiro	gol	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72376	277	Cléber Janderson Pereira Reis	Cléber	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+78248	277	Gustavo Henrique Vernes	Gustavo Henrique	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50421	276	Wesley Lopes Beltrame	Wesley	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+89343	276	Carlos Eugenio Júnior Tavares dos Santos	Júnior Tavares	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70916	283	Diogo Barbosa Mendanha	Diogo Barbosa	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60788	292	Marcos Antônio da Silva Gonçalves	Marquinhos	Atacante	ata	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73869	283	John Lennon Silva Santos	Lennon	Lateral	lat	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87742	292	Antônio Francisco Moura Neto	Neto Moura	Meia	mei	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37281	283	Luis Antônio Venker de Menezes	Mano Menezes	Tecnico	tec	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38632	292	Matheus Ferraz Pereira	Matheus Ferraz	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50459	283	Leonardo Renan Simões de Lacerda	Léo	Zagueiro	zag	\N	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+\.
+
+
+--
+-- Data for Name: Round; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "Round" (id, round) FROM stdin;
+1	0
+11	1
+\.
+
+
+--
+-- Name: Round_id_seq; Type: SEQUENCE SET; Schema: public; Owner: leandromachado
+--
+
+SELECT pg_catalog.setval('"Round_id_seq"', 11, true);
+
+
+--
+-- Data for Name: SequelizeMeta; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "SequelizeMeta" (name) FROM stdin;
+20170111021645-team-migration.js
+20170211021643-round-migration.js
+20170311021642-player-migration.js
+20170411021641-game-migration.js
+20170411021641-performance-migration.js
+\.
+
+
+--
+-- Data for Name: Team; Type: TABLE DATA; Schema: public; Owner: leandromachado
+--
+
+COPY "Team" (id, name, initials, team_id) FROM stdin;
+373	Atletico-GO	ATG	373
+282	Atletico-MG	CAM	282
+293	Atletico-PR	CAP	293
+314	Avaí	AVA	314
+265	Bahia	BAH	265
+263	Botafogo	BOT	263
+315	Chapecoense	CHA	315
+264	Corinthians	COR	264
+294	Coritiba	CTB	294
+283	Cruzeiro	CRU	283
+262	Flamengo	FLA	262
+266	Fluminense	FLU	266
+284	Grêmio	GRE	284
+275	Palmeiras	PAL	275
+303	Ponte Preta	PON	303
+277	Santos	SAN	277
+276	São Paulo	SAN	276
+292	Sport	SPT	292
+267	Vasco	VAS	267
+287	Vitória	VIT	287
+\.
+
+
+--
+-- Name: Team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: leandromachado
+--
+
+SELECT pg_catalog.setval('"Team_id_seq"', 20, true);
+
+
+--
+-- Name: Game_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Game"
+    ADD CONSTRAINT "Game_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Performance_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Performance"
+    ADD CONSTRAINT "Performance_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Player_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Player"
+    ADD CONSTRAINT "Player_pkey" PRIMARY KEY (player_id);
+
+
+--
+-- Name: Round_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Round"
+    ADD CONSTRAINT "Round_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: SequelizeMeta_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "SequelizeMeta"
+    ADD CONSTRAINT "SequelizeMeta_pkey" PRIMARY KEY (name);
+
+
+--
+-- Name: Team_pkey; Type: CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Team"
+    ADD CONSTRAINT "Team_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Game_round_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Game"
+    ADD CONSTRAINT "Game_round_id_fkey" FOREIGN KEY (round_id) REFERENCES "Round"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: Performance_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Performance"
+    ADD CONSTRAINT "Performance_game_id_fkey" FOREIGN KEY (game_id) REFERENCES "Game"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: Performance_player_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Performance"
+    ADD CONSTRAINT "Performance_player_id_fkey" FOREIGN KEY (player_id) REFERENCES "Player"(player_id) ON DELETE CASCADE;
+
+
+--
+-- Name: Player_team_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: leandromachado
+--
+
+ALTER TABLE ONLY "Player"
+    ADD CONSTRAINT "Player_team_id_fkey" FOREIGN KEY (team_id) REFERENCES "Team"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
